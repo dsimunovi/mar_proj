@@ -55,3 +55,10 @@ Pocetak | Kraj
 15:20 | 23:49
 ### Kratki opis promjena
 Odabir guma i naplataka se dohvaća sa servera, treba još staviti početne gume i naplatke s auta koji se također dohvaćaju sa servera. 
+
+## 18.4.2023.
+Pocetak | Kraj
+------- | ----
+16:10 | 17:24
+### Kratki opis promjena
+Mala izmjena i nadopuna na formi za odabir.
