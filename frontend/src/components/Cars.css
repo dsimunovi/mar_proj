@@ -1,0 +1,45 @@
+#car-card{
+    border-bottom: 2px inset black;
+    padding: 15px;
+    background-color: lightgrey;
+}
+
+#slika-auta{
+    height: 100%;
+}
+
+.me-1{
+    font-size: 2rem;
+    border-bottom: 2px solid black;
+    border-right:5px solid black;
+}
+
+
+#car-card{
+    margin: 0;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+
+}
+
+#main-car{
+    display: grid;
+}
+
+ .row{
+   display: flex;
+   flex-direction: column !important;
+   align-items: center;
+   max-width: 50vw;
+}
+
+.modal-90w{
+    
+}
+
+

@@ -1,0 +1,23 @@
+#div1{
+  background-color: #f8f9fa;
+}
+
+#div1>h1{
+  text-align: center;
+}
+
+.navbar{
+  background-color: rgb(207, 207, 207) !important;
+}
+
+.navbar-nav>a{
+  animation: transform 0.2s;
+}
+.navbar-nav>a:hover{
+  transform: scale(1.1);
+}
+
+.flex-app{
+  display: flex;
+  flex-wrap: wrap;
+}

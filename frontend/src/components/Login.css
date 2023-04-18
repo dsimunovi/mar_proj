@@ -1,0 +1,55 @@
+#div-prijava{
+    width: 70%;
+    height: 55%;
+    left: 15%;
+    top: 10%;
+    position: absolute;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 15px;
+    background-image: url(https://www.autohrvatska.hr/EasyEdit/UserFiles/SliderImages/e-tron/e-tron-638113735309263102_1600_700.jpeg);
+    background-size: 100%;
+}
+
+#prijava{
+    margin-left: 45%;
+<<<<<<< HEAD
+    background-color: green;
+    border: none;
+}
+=======
+    background-color: darkgreen;
+    border: none;
+}
+#prijava:hover{
+    background-color: rgb(6, 48, 6);
+}
+>>>>>>> master
+
+#labela{
+    float: left;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.tab-content{
+    float: right;
+    margin-right: 14.5%;
+}
+
+#reg{
+    color: darkgreen;
+<<<<<<< HEAD
+=======
+    font-weight: bold;
+>>>>>>> master
+}
+
+#reg:hover{
+    color: rgb(6, 48, 6);
+}
+
+#user, #pass{
+    color: whitesmoke;
+    font-weight: bold;
+}

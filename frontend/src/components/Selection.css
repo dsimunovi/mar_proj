@@ -1,0 +1,45 @@
+#glavni{
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+    z-index: 999;
+    
+}
+
+
+
+img{
+    width: 150px;
+    height: 150px;
+}
+
+.labele{
+    margin-top: 15px;
+    font-weight: bold;
+}
+.n-g{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px;
+    flex-direction: column;
+    animation: transform .2s;
+    
+}
+
+#column-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.n-g:hover{
+    transform: scale(1.5);
+}
+
+.flex-row-1{
+    display: flex;
+    gap: 10px;
+}
