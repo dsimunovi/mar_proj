@@ -62,3 +62,17 @@ Pocetak | Kraj
 16:10 | 17:24
 ### Kratki opis promjena
 Mala izmjena i nadopuna na formi za odabir.
+
+## 21.4.2023.
+Pocetak | Kraj
+------- | ----
+12:15 | 20:56
+### Kratki opis promjena
+Napravljeni controllersi i spojeno na bazu
+
+## 22.4.2023.
+Pocetak | Kraj
+------- | ----
+12:00 | 18:55
+### Kratki opis promjena
+Prijava napravljena, registracija još ne
