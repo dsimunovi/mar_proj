@@ -10,8 +10,11 @@
 
 .me-1{
     font-size: 2rem;
-    border-bottom: 2px solid black;
-    border-right:5px solid black;
+}
+.mb-1{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
 }
 
 
@@ -20,26 +23,29 @@
     margin-bottom: 1%;
     margin-top: 1%;
     width: 100%;
-    grid-column-start: 1;
-    grid-column-end: 1;
-    grid-row-start: 1;
-    grid-row-end: 1;
+
 
 }
 
-#main-car{
-    display: grid;
-}
 
  .row{
    display: flex;
    flex-direction: column !important;
    align-items: center;
-   max-width: 50vw;
+   max-width: 70%;
+   animation: transform 2s;
 }
 
-.modal-90w{
-    
+.row:hover{
+    transform: scale(1.05);
+    background-color: lavender !important;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.row-1{
+  display: flex;
+  justify-content: flex-end;
 }
 
 

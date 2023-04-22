@@ -1,0 +1,17 @@
+POST http://localhost:3001/api/cars
+Content-Type: application/json
+
+{ 
+         "slika":"https://www.njuskalo.hr/image-w920x690/novi-auti/aston-martin-dbs-superleggera-5.2-v12-slika-184090900.jpg",
+        "marka":"Aston Martin",
+        "model":"DBS SUPERLEGGERA",
+        "godiste":2022,
+        "kilometri":0,
+        "vrstaMotora":"Benzin",
+        "snagaMotora":553,
+        "mjenjac":"Automatski",
+        "boja":"darkgray",
+        "cijena":476315,
+      "gume":"64412da0b6df7839f2ffa616",
+      "naplatci":"644130126408751a8054cf59"
+    }

@@ -42,4 +42,42 @@ img{
 .flex-row-1{
     display: flex;
     gap: 10px;
+    justify-content: space-around;
 }
+
+.flex-column-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-row-color{
+    margin-bottom: 15px;
+}
+
+.postavi{
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    border: 2px solid darkmagenta;
+}
+
+.postavi:hover{
+    background-color: darkmagenta;
+}
+
+.slike-sel{
+    height: 250px;
+    width: 250px;
+    border-radius: 5%;
+    margin: 30px 0px;
+}
+
+#botun{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 30px;
+    width: inherit;
+}
+

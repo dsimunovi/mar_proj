@@ -4,6 +4,9 @@ import Cars from './components/Cars'
 import Footer from './components/Footer'
 import carsActions from './services/cars';
 import Slideshow from './components/Slider';
+import Prijava from './components/Login';
+import prijavaAkcije from './services/login'
+import korisnikAkcije from './services/users'
 
 
 
@@ -14,6 +17,14 @@ const App = (props) => {
   const [cars, getCars]=useState([])
   const [print, printAll]=useState() 
   const [visible,setVisible]=useState(false)
+  const [username, postaviUsername] = useState("");
+  const [pass, postaviPass] = useState("");
+  const [korisnik, postaviKorisnika] = useState(null);
+  const [usernameReg,postaviNick]=useState("")
+  const [nameReg,postaviName]=useState("")
+  const [emailReg, postaviEmail]=useState("")
+  const [passReg,postaviPassword]=useState("")
+  const [noviKorisnik, postaviNovogKorisnika]=useState(null)
 
 
   const svi=cars
@@ -28,14 +39,101 @@ const App = (props) => {
     console.log(res.data)})
   },[])
 
+  const userLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const korisnik = await prijavaAkcije.prijava({
+        username,
+        pass,
+      });
+      const isLoggedIn=window.localStorage.setItem(
+        "prijavljeniKorisnik",
+        JSON.stringify(korisnik)
+      );
+      postaviKorisnika(korisnik);
+      postaviUsername("");
+      postaviPass("");
+      console.log(korisnik);
+    } catch (exception) {
+      alert("Neispravni podaci");
+    }
+  };
+  const userRegistration=async(e)=>{
+    e.preventDefault();
+    try{
+      const noviKorisnik=await korisnikAkcije.stvoriKorisnika({
+        usernameReg,
+        nameReg,
+        emailReg,
+        passReg
+      })
+      postaviNovogKorisnika(noviKorisnik);
+      postaviNick("");
+      postaviName("");
+      postaviEmail("")
+      postaviPassword("")
+      console.log(korisnik);
+      
+    }
+    catch(exception){
+      alert("Probajte s drugim podacima")
+    }
+  }
+
+  const prijava = () => {
+    return (
+        <Prijava
+          username={username}
+          pass={pass}
+          promjenaImena={({ target }) => postaviUsername(target.value)}
+          promjenaLozinke={({ target }) => postaviPass(target.value)}
+          userLogin={userLogin}
+          usernameReg={usernameReg}
+        nameReg={nameReg}
+        emailReg={emailReg}
+        passReg={passReg}
+        promjenaNicka={({ target }) => postaviNick(target.value)}
+        promjenaNamea={({target})=>postaviName(target.value)}
+        promjenaEmail={({target})=>postaviEmail(target.value)}
+        promjenaPassworda={({target})=>postaviPassword(target.value)}
+        userRegistration={userRegistration}
+        />
+    );
+  };
+
+  
+
+ 
+
+  useEffect(() => {
+    const logiraniKorisnikJSON = window.localStorage.getItem(
+      "prijavljeniKorisnik"
+    );
+    if (logiraniKorisnikJSON) {
+      const korisnik = JSON.parse(logiraniKorisnikJSON);
+      postaviKorisnika(korisnik);
+    }
+  }, []);
+
+  const handleLogout = () => {
+   window.localStorage.removeItem('prijavljeniKorisnik')
+   window.location.reload(true)
+  };
+
+
+  
  
 
   
 
   
   return (
-    <div>
     
+    <div>
+      {korisnik===null ? (
+        prijava()
+      ):
+      <div>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
 <div className="container-fluid">
   <a href="#" className="navbar-brand">
@@ -52,7 +150,8 @@ const App = (props) => {
           <a href="#" className="nav-item nav-link">Kupljena vozila</a>
       </div>
       <div className="navbar-nav ms-auto">
-          <a href="#" className="nav-item nav-link">Logout</a>
+        <p className="nav-item nav-link"><b>{korisnik.ime}</b></p>
+          <a href="#" className="nav-item nav-link" onClick={handleLogout}>Logout</a>
       </div>
   </div>
 </div>
@@ -66,6 +165,7 @@ const App = (props) => {
   
                 
         <Footer></Footer>
+      </div>}
       </div>
   )} 
       

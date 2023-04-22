@@ -6,8 +6,11 @@ const Rims=({changeRims})=>{
 
     const [rims, getRims]=useState([])
     const sviNaplatci=rims
+    const novi=sviNaplatci.filter((rim)=>
+      rim.cijena!==0
+    )
     
-    const content=sviNaplatci.map((r)=>
+    const content=novi.map((r)=>
   
       <option key={r.id} value={r.id} > {r.tip} {r.cijena}€</option>)
 

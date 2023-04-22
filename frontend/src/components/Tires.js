@@ -5,8 +5,11 @@ import tiresActions from '../services/tires';
 const Tires=({changeTire})=>{
     const [tires, getTires]=useState([])
     const sveGume=tires
+    const nove=sveGume.filter((n)=>
+      n.original===false
+      )
     
-    const content=sveGume.map((t)=>
+    const content=nove.map((t)=>
   
       <option key={t.id} value={t.id} >{t.marka} {t.tip} {t.cijena}€</option>
       

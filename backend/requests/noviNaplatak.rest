@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/rims
+Content-Type: application/json
+
+{
+      
+      "slika":"https://rabljenegume.com.hr/common/core/images/felni/4550/45181.JPG",
+      "tip":"Aluminijski",
+      "cijena":0
+    }

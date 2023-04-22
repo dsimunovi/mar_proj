@@ -3,8 +3,6 @@ import './Cars.css'
 import './Selection.css';
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-import { HiOutlineX, HiChevronDown } from "react-icons/hi";
-import { BsFillCarFrontFill } from "react-icons/bs";
 import Tires from "./Tires";
 import tiresActions from "../services/tires"
 import rimsActions from "../services/rims"
@@ -20,15 +18,12 @@ import Modal from 'react-bootstrap/Modal';
 
 
 const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,})=>{
-  const[selection, setSelection]=useState(false)
   const [color, setColor] = useColor("hex", "#121212");
-  const [print1, printAll1]=useState()
-  const [print2, printAll2]=useState()
   const [cars, postaviAute] = useState([])
-  const [payment,setPayment]=useState(false)
   const [nacin, postaviNacin]=useState("Gotovina")
   const [check, setCheck]=useState(false)
   const [checkGuma, setCheckGuma]=useState(false)
+  const [checkNaplatak, setCheckNaplatak]=useState(false)
   const [visible, setVisible] = useState(false)
   const [startColor, setStartColor] = useState(boja);
   const [colorSet, setColorSet] = useState("");
@@ -36,49 +31,44 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   const [visibleRim, setVisibleRim] = useState(false)
   const [lgShow, setLgShow] = useState(false);
 
-  const[startGuma,setStartGuma]=useState({
-    id:0,
-    slika:"https://www.vulkal.hr/images/thumbs/-0690522_GRIPMAX-265-35-R20-SUREGRIP-PRO-SPORT-XL-99Y_360.jpeg",
-    marka:"Gripmax",
-    tip:"Ljetna",
-    stanje:"Rabljeno",
-    cijena:0
-  })
   const [tires,setTires]=useState({
     id:"",
     slika:"/",
     marka:"/",
     tip:"/",
-    stanje:"/",
     cijena:"/"
   })
-
-  const [chosenTire,setChosenTire]=useState()
-
-  const[startRim,setStartRim]=useState({
-    id:0,
-    slika:"https://www.vulkal.hr/images/thumbs/-0690522_GRIPMAX-265-35-R20-SUREGRIP-PRO-SPORT-XL-99Y_360.jpeg",
-    tip:"Aluminijski",
-    cijena:0
-  })
-  const [rims,getRims]=useState({
+  const [rims,setRims]=useState({
     id:"",
     slika:"/",
     tip:"/",
     cijena:"/"
   })
 
-  const [chosenRim,setChosenRim]=useState()
+  
+  
+  
+
+ const [chosenRim,setChosenRim]=useState()
 
   const pronadiNaplatak=()=>{
+    if(!checkNaplatak){
     rimsActions.dohvatiJedanNaplatak(chosenRim)
     .then(res=>{
-      getRims(res.data)
-    })
+      setRims(res.data)
+    })}
+    else{
+      rimsActions.dohvatiJedanNaplatak(naplatci)
+      .then(res=>{
+        setRims(res.data)
+      })
+    }
     setVisibleRim(true)
-  }
-
+  } 
   
+  
+
+  const [chosenTire,setChosenTire]=useState()
   const pronadiGumu=()=>{
     if(!checkGuma){
     tiresActions.dohvatiJedneGume(chosenTire)
@@ -86,7 +76,10 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
       setTires(res.data)
     console.log(res.data)})}
       else{
-        setTires(startGuma)
+        tiresActions.dohvatiJedneGume(gume)
+        .then(res=>{
+          setTires(res.data)
+        })
       }
     setVisibleGume(true)
   }
@@ -107,32 +100,23 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
 
 
 
-  
-
-
-  const svi1=tires
-  const prikaziSve1=()=>{
-    printAll1(svi1);
-  }
-  const svi2=rims
-  const prikaziSveNaplatke=()=>{
-    printAll2(svi2);
-  }
-
-useEffect(()=>{
-  rimsActions.dohvatiSveNaplatke()
-  .then(res=>{
-    getRims(res.data)
-    console.log(res.data)
-  })
-},[])
-
 useEffect(() => {
   carsActions.dohvatiSve()
   .then(res => postaviAute(res.data))
-}, []);
+}, []); 
 
-let ukupno=cijena+tires.cijena+rims.cijena
+useEffect(()=>{tiresActions.dohvatiJedneGume(gume)
+  .then(res=>{
+    setTires(res.data)
+    setVisibleGume(true)
+  })},[])
+  
+useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
+    .then(res=>{
+      setRims(res.data)
+      setVisibleRim(true)
+    })},[]) 
+
     return(
          
         <div id="main-car">
@@ -177,52 +161,49 @@ let ukupno=cijena+tires.cijena+rims.cijena
                           <label className="mb-1 me-1">{cijena} €</label> {/*trenutna cijena */}
                         </div>
                         <div className="d-flex flex-column mt-4">
-                        <Button variant="primary" onClick={() => setLgShow(true)}>Kupi</Button>
+                        <Button style={{backgroundColor:'black', border:'2px solid darkmagenta'}} variant="primary" onClick={() => setLgShow(true)}>Kupi</Button>
                         </div>
                       </div>
                     </div>
                     </div>
                  
-      <Modal size="lg"
+      <Modal size="xl"
         show={lgShow}
         aria-labelledby="example-modal-sizes-title-lg"
         onHide={() => setLgShow(false)}
         >
         <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">Odaberi pod svojoj želji za {marka} {model}</Modal.Title>
+          <Modal.Title id="example-custom-modal-styling-title">Odaberi po svojoj želji za {marka} {model}</Modal.Title>
         </Modal.Header>
         <Modal.Body>  <div className="flex-row-1">
               <div className="flex-column-2">
-              <div>
       <div className='flex-row-color'>
         <input
           type='checkbox'
           name="check1"
           value={check}
-          id="flexCheckChecked"
+          className="flexCheckChecked"
           onChange={() => setCheck(!check)}
         /><label>Ne želim mijenjati boju</label>
       </div>
       <ColorPicker
         width={300}
-        height={150}
+        height={250}
         color={color}
         onChange={setColor}
         hideHSV hideRGB dark
       />
-      <button onClick={changeColor}>Postavi boju</button>
       {visible ?
         <div>
           <div>{colorSet}</div>
           <div style={{
             backgroundColor: `${colorSet}`,
-            width: '20px',
+            width: '65px',
             height: '20px'
           }}></div>
         </div>
         : ""
       }
-    </div>
               </div> {/*flex-column-1*/}
             <div className="flex-column-2">
             <div className='flex-row-color'>
@@ -230,17 +211,15 @@ let ukupno=cijena+tires.cijena+rims.cijena
           type='checkbox'
           name="check1"
           value={checkGuma}
-          id="flexCheckChecked"
-          onChange={() => setCheckGuma(!check)}
+          className="flexCheckChecked"
+          onChange={() => setCheckGuma(!checkGuma)}
         /><label>Ne želim mijenjati gume</label>
       </div>
               <Tires changeTire={setChosenTire} />
-              {visibleGume?<div><div><img src={tires.slika} style={{width:"100px",height:"100px"}}/></div>
+              {visibleGume?<div><img className='slike-sel' src={tires.slika}/>
               <div>Marka: {tires.marka}</div>
               <div>Tip: {tires.tip}</div>
-              <div>Stanje: {tires.stanje}</div>
               <div>Cijena u €: {tires.cijena}</div></div>:""}
-              <button onClick={pronadiGumu} >Postavi gume</button>
               
             </div> {/*flex-column-2*/}
             <div className="flex-column-2">
@@ -249,21 +228,25 @@ let ukupno=cijena+tires.cijena+rims.cijena
           type='checkbox'
           name="check1"
           value={checkGuma}
-          id="flexCheckChecked"
-          onChange={() => setCheckGuma(!check)}
-        /><label>Ne želim mijenjati gume</label>
+          className="flexCheckChecked"
+          onChange={() => setCheckNaplatak(!checkNaplatak)}
+        /><label>Ne želim mijenjati naplatke</label>
         </div>
             <Rims changeRims={setChosenRim} />
-              {visibleRim?<div><div><img src={rims.slika} style={{width:"100px",height:"100px"}}/></div>
+              {visibleRim?<div><img className='slike-sel'src={rims.slika}/>
               <div>Tip: {rims.tip}</div>
               <div>Cijena u €: {rims.cijena}</div></div>:""}
-              <button onClick={pronadiNaplatak} >Postavi naplatke</button>
+              
             </div> {/*flex-column-2*/}
           </div> {/*flex-row-1*/}
+          <div id="botun">
+            <button className="postavi" onClick={changeColor}>Postavi boju</button>
+            <button  className="postavi" onClick={pronadiGumu} >Postavi gume</button>
+            <button className="postavi" onClick={pronadiNaplatak} >Postavi naplatke</button>
+          </div>
       </Modal.Body>
       <Modal.Footer>
-        <label style={{color:'red',fontWeight:'bold'}}>Ukupno za platiti: {ukupno} €</label>
-          <Button variant="primary" >
+          <Button variant="outline-success" >
             Spremi promjene
           </Button>
         </Modal.Footer>

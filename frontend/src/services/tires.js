@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const Url = 'http://localhost:3001/api/gume'
+const Url = 'http://localhost:3001/api/tires'
  
 const dohvatiSve1 = () => {   
     return axios.get(Url);
@@ -20,8 +20,6 @@ const brisi = id => {
 const dohvatiJedneGume = async (id) => {
     return axios.get(`${Url}/${id}`);
 }
-const dohvatiNoveGume = async (stanje) => {
-    return axios.get(`${Url}/${stanje}`);
-}
+
  
-export default { dohvatiSve1, stvori, osvjezi, brisi, dohvatiJedneGume, dohvatiNoveGume}
+export default { dohvatiSve1, stvori, osvjezi, brisi, dohvatiJedneGume}

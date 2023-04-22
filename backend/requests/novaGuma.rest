@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/gume 
+Content-Type: application/json
+  
+    
+       
+     
+        {
+        "slika":"https://rabljenegume.com.hr/common/core/images/hgumi/13132/hasznalt_bridgestone_lm001_teli.jpg",
+        "tip":"Zimske",
+        "marka":"Bridgestone",
+        "cijena":0,
+        "original":true
+    
+        }
+    
