@@ -76,3 +76,17 @@ Pocetak | Kraj
 12:00 | 18:55
 ### Kratki opis promjena
 Prijava napravljena, registracija još ne
+
+## 28.4.2023.
+Pocetak | Kraj
+------- | ----
+16:32 | 22:51
+### Kratki opis promjena
+Napravljena registracija korisnika, rješavanje problema s update-om auta
+
+## 1.5.2023.
+Pocetak | Kraj
+------- | ----
+13:00 | 00:02
+### Kratki opis promjena
+Riješen problem s update-om, još povezati korisnika s kupljenim autom 
