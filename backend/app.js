@@ -10,6 +10,8 @@ const middleware=require('./utils/middleware')
 const config=require('./utils/config')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
+const bodyparser=require('body-parser')
+
 
 
 app.use(express.json());
@@ -23,6 +25,8 @@ app.use('/api/login',loginRouter)
 app.use(middleware.nepoznataRuta)
 app.use(middleware.errorHandler)
 app.use(middleware.zahtjevInfo)
+app.use(bodyparser.urlencoded({extended:false}));
+app.use(bodyparser.json())
 
 
 module.exports=app

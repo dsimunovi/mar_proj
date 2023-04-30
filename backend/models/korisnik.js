@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+const bcrypt=require('bcryptjs')
 
 const korisnikSchema = new mongoose.Schema({
     username: {
@@ -17,12 +18,25 @@ const korisnikSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    auti: [
-        {
+    auti: [{
+        car:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Auto'
-        }
-    ]
+        },
+        tire:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Gume'
+        },
+        rim:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Naplatci'
+        },
+        placanje:[{
+            nacin:String,
+            brojRata:Number
+        }]
+
+    }]
 })
 korisnikSchema.plugin(uniqueValidator)
 korisnikSchema.set('toJSON', {
@@ -33,6 +47,14 @@ korisnikSchema.set('toJSON', {
         delete ret.passHash
         return ret
     }
+})
+
+korisnikSchema.pre('save', async function(next){
+    if(!this.isModified){
+        next()
+    }
+    const salt=await bcrypt.genSalt(10)
+    this.passHash=await bcrypt.hash(this.passHash,salt)
 })
 
 const Korisnik = mongoose.model('Korisnik', korisnikSchema, 'korisnici')

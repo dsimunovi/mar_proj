@@ -1,11 +1,11 @@
-POST http://localhost:3001/api/gume 
+POST http://localhost:3001/api/tires
 Content-Type: application/json
   
     
        
      
         {
-        "slika":"https://rabljenegume.com.hr/common/core/images/hgumi/13132/hasznalt_bridgestone_lm001_teli.jpg",
+        "slika":"https://rabljenegume.com.hr/common/core/images/hgumi/2080/hasznalt_bridgestone_blizzak_lm_30_teli.jpg",
         "tip":"Zimske",
         "marka":"Bridgestone",
         "cijena":0,

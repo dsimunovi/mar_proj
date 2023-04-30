@@ -15,7 +15,7 @@ loginRouter.post('/',async(req,res)=>{
 
     if(!(korisnik && passwordOK)){
         return res.status(401).json({
-            error:"Nesipravno korisničko ime ili lozinka"
+            error:"Neispravno korisničko ime ili lozinka"
         })
     }
 

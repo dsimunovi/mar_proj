@@ -48,4 +48,168 @@
   justify-content: flex-end;
 }
 
+.promjenjeno{
+    margin-left: 3%;
+}
+.stavke{
+    margin-left: 5%;
+    color: red;
+}
 
+#info-car{
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+#info-car>#cijena{
+    font-size: 25px;
+}
+.flex-col img{
+    width: 100px;
+    height: 100px;
+}
+
+.promjenjeno img{
+    width: 85px;
+    height: 85px;
+}
+
+.cijena{
+    font-size: 20px;
+}
+
+#cijenaAuto{
+    font-size: 25px;
+}
+
+#glavni{
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+    z-index: 999;
+    
+    
+}
+
+
+
+img{
+    width: 150px;
+    height: 150px;
+}
+
+.labele{
+    margin-top: 15px;
+    font-weight: bold;
+}
+.n-g{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px;
+    flex-direction: column;
+    animation: transform .2s;
+    
+}
+
+#column-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.n-g:hover{
+    transform: scale(1.5);
+}
+
+.flex-row-1{
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.flex-column-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-row-color{
+    margin-bottom: 15px;
+}
+
+.postavi{
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    border: 2px solid darkmagenta;
+}
+
+.postavi:hover{
+    background-color: darkmagenta;
+}
+
+.slike-sel{
+    height: 250px;
+    width: 250px;
+    border-radius: 5%;
+    margin: 30px 0px;
+}
+
+#botun{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 30px;
+    width: inherit;
+}
+
+.flex-review{
+    display: flex;
+    flex-direction: column;
+}
+.flex-review-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-review{
+    width: 130px;
+    height: 120px;
+}
+
+.image-review>img{
+    width: 100%;
+    height: 100%;
+}
+
+.red{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.flex-col{
+    width: 50%;
+}
+#odabir{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.payment-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+}
+#ukupno{
+    font-weight: bold;
+    font-size: 30px;
+}

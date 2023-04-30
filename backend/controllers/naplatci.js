@@ -16,6 +16,18 @@ naplatciRouter.delete('/:id', async(req,res)=>{
     res.json(204).end()
 
 })
+naplatciRouter.post('/', async(req,res)=>{
+    const podatak=req.body
+
+    const noviNaplatak=new Naplatak({
+        slika:podatak.slika,
+        tip:podatak.tip,
+        cijena:podatak.cijena
+
+    })
+    const spremiNaplatak=await noviNaplatak.save()
+    res.json(spremiNaplatak)
+})
 
 
 module.exports=naplatciRouter

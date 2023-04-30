@@ -1,30 +1,37 @@
+.login-glavni{
+    width: 100%;
+    height: 100vh;
+    background-image: url("https://hips.hearstapps.com/hmg-prod/images/dsc03346-1677272749.jpg");
+    background-size: cover;
+    background-position: 100%;
+}
+
 #div-prijava{
     width: 50%;
     height: 65%;
     
-    top: 10%;
+    top: 5%;
     position: absolute;
-    border-right: 1px solid gray;
     padding: 15px;
+    background-color: rgba(255, 255, 255, 0.498);
+    font-weight: bold;
 
 }
+
 #div-reg{
     width: 50%;
-    height: 65%;
-    left: 50%;
-    top: 10%;
+    height: 90%;
+    
+    top: 5%;
     position: absolute;
-    border-right: 1px solid gray;
     padding: 15px;
+    background-color: rgba(255, 255, 255, 0.498);
+    font-weight: bold;
+
 }
 
-#prijava{
-    background-color: darkgreen;
-    border: none;
-}
-#prijava:hover{
-    background-color: rgb(6, 48, 6);
-}
+
+
 
 #labela{
     float: left;
@@ -32,24 +39,14 @@
     font-weight: bolder;
 }
 
-
-
-#reg{
-    color: darkgreen;
-    font-weight: bold;
+.prijava{
+    background-color: darkslategray;
+    border: none;
 }
-
-#reg:hover{
-    color: rgb(6, 48, 6);
-}
-
-#user, #pass{
-    color: darkgreen;
-    font-weight: bold;
-    border-radius: 3%;
-}
-
-#log-reg{
-    display: flex;
-    flex-direction: row;
+.link-to-reg{
+        background-color: transparent;
+        border: none;
+        font-weight: bold;
+        
+    
 }

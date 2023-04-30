@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import './Cars.css'
-import './Selection.css';
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import Tires from "./Tires";
@@ -8,28 +7,30 @@ import tiresActions from "../services/tires"
 import rimsActions from "../services/rims"
 import Rims from "./Rims";
 import carsActions from '../services/cars';
-import axios from 'axios';
 import "./CarReview.css"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import usersActions from "../services/users"
 
 
 
 
 
-const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,})=>{
-  const [color, setColor] = useColor("hex", "#121212");
+const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci})=>{
+  const [startColor, setStartColor] = useState(boja);
+  const [color, setColor] = useColor("hex", startColor);
   const [cars, postaviAute] = useState([])
-  const [nacin, postaviNacin]=useState("Gotovina")
-  const [check, setCheck]=useState(false)
+  const [nacin, postaviNacin]=useState("gotovina")
   const [checkGuma, setCheckGuma]=useState(false)
   const [checkNaplatak, setCheckNaplatak]=useState(false)
   const [visible, setVisible] = useState(false)
-  const [startColor, setStartColor] = useState(boja);
-  const [colorSet, setColorSet] = useState("");
   const [visibleGume, setVisibleGume] = useState(false)
   const [visibleRim, setVisibleRim] = useState(false)
   const [lgShow, setLgShow] = useState(false);
+  const [fullscreen, setFullscreen] = useState(true);
+  const [show, setShow] = useState(false);
+  const [payment,setPayment]=useState(false)
+  const [user, setUser]=useState(null)
 
   const [tires,setTires]=useState({
     id:"",
@@ -46,9 +47,23 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   })
 
   
+   let ukupno=cijena+tires.cijena+rims.cijena
   
-  
+const izmjenaAuta=(id)=>{
+  const auto=cars.find((c)=>c.id===id)
+  const modCar={
+    ...auto,
+    boja:startColor,
+    gume:tires.id,
+    naplatci:rims.id
+    
+  }
+  carsActions.osvjezi(id,modCar, {new:true})
+  .then(res=>{
 
+  }
+  )
+}
  const [chosenRim,setChosenRim]=useState()
 
   const pronadiNaplatak=()=>{
@@ -58,7 +73,7 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
       setRims(res.data)
     })}
     else{
-      rimsActions.dohvatiJedanNaplatak(naplatci)
+      rimsActions.dohvatiJedanNaplatak(naplatci.id)
       .then(res=>{
         setRims(res.data)
       })
@@ -74,9 +89,9 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
     tiresActions.dohvatiJedneGume(chosenTire)
     .then(res=>{
       setTires(res.data)
-    console.log(res.data)})}
+   })}
       else{
-        tiresActions.dohvatiJedneGume(gume)
+        tiresActions.dohvatiJedneGume(gume._id)
         .then(res=>{
           setTires(res.data)
         })
@@ -86,18 +101,16 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
 
   
 
-    const handleChange = (event) => {
-        postaviNacin(event.target.value)
+    const handleChange = () => {
+        izmjenaAuta(id)
+        setShow(true)
     }
+
+    
   const changeColor = () => {
-    if (!check) {
-      setColorSet(color.hex);
-    } else {
-      setColorSet(startColor);
-    }
+    setStartColor(color.hex)
     setVisible(true)
   }
-
 
 
 useEffect(() => {
@@ -116,6 +129,7 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
       setRims(res.data)
       setVisibleRim(true)
     })},[]) 
+
 
     return(
          
@@ -167,25 +181,16 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
                     </div>
                     </div>
                  
-      <Modal size="xl"
+      <Modal size="fullscreen"
         show={lgShow}
         aria-labelledby="example-modal-sizes-title-lg"
         onHide={() => setLgShow(false)}
         >
         <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">Odaberi po svojoj želji za {marka} {model}</Modal.Title>
+          <Modal.Title id="example-custom-modal-styling-title">Odaberi za svoj {marka} {model}</Modal.Title>
         </Modal.Header>
         <Modal.Body>  <div className="flex-row-1">
               <div className="flex-column-2">
-      <div className='flex-row-color'>
-        <input
-          type='checkbox'
-          name="check1"
-          value={check}
-          className="flexCheckChecked"
-          onChange={() => setCheck(!check)}
-        /><label>Ne želim mijenjati boju</label>
-      </div>
       <ColorPicker
         width={300}
         height={250}
@@ -195,9 +200,9 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
       />
       {visible ?
         <div>
-          <div>{colorSet}</div>
+          <div>{startColor}</div>
           <div style={{
-            backgroundColor: `${colorSet}`,
+            backgroundColor: `${startColor}`,
             width: '65px',
             height: '20px'
           }}></div>
@@ -240,17 +245,85 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
             </div> {/*flex-column-2*/}
           </div> {/*flex-row-1*/}
           <div id="botun">
-            <button className="postavi" onClick={changeColor}>Postavi boju</button>
+          <button  className="postavi" onClick={changeColor} >Postavi boju</button>
             <button  className="postavi" onClick={pronadiGumu} >Postavi gume</button>
             <button className="postavi" onClick={pronadiNaplatak} >Postavi naplatke</button>
           </div>
       </Modal.Body>
       <Modal.Footer>
-          <Button variant="outline-success" >
+          <Button variant="outline-success" onClick={()=>handleChange()}>
             Spremi promjene
           </Button>
         </Modal.Footer>
       </Modal>
+
+    {show ? <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Plaćanje</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='red'>
+            <div className='flex-col'>
+          <div  id='info-car'>
+            <div><img src={slika}/></div>
+            <div>{marka}</div>
+            <div>{model}</div>
+            <div>{kilometri} km</div>
+            <div>{godiste}. god</div>
+            <div>{mjenjac} mjenjač</div>
+            <div>{snagaMotora} kW</div>
+            <div>{vrstaMotora}</div>
+            <div id="cijenaAuto">Cijena auta:<b>{cijena} €</b></div>
+          </div>
+          <div id='odabir'>
+
+            <div className='promjenjeno'> Gume:
+            <div className='stavke'><img src={tires.slika}/></div>
+            <div className='stavke'>{tires.marka}</div>
+            <div className='stavke'>{tires.tip}</div>
+            <div className='stavke cijena'><b>{tires.cijena} €</b></div>
+            </div>
+            
+            
+            <div className='promjenjeno'>Naplatci:
+              <div className='stavke'><img src={rims.slika}/></div>
+              <div className='stavke'>{rims.tip}</div>
+              <div className='stavke cijena' ><b>{rims.cijena} €</b></div>
+            </div>
+            <div className='promjenjeno'>Boja: <div className='stavke' style={{width:'30px',height:'30px',backgroundColor:`${startColor}`}}></div></div>
+          </div></div>
+                
+          <form>
+  <div class="form-group">
+    <label>Vrsta plaćanja:</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="paymentType" id="cash" value="gotovina" checked/>
+      <label class="form-check-label" for="cash">Gotovina</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="paymentType" id="card" value="kartica"/>
+      <label class="form-check-label" for="card">Kartica</label>
+    </div>
+  </div>
+  <div class="form-group" id="installmentFields">
+    <label for="installments">Broj rata:</label>
+    <select class="form-control" id="installments" name="installments">
+      <option value="1">Jednokratno</option>
+      <option value="2">2 rate</option>
+      <option value="3">3 rate</option>
+      <option value="4">4 rate</option>
+      <option value="5">5 rata</option>
+    </select>
+  </div>
+  <div id="cijenaAuto">Ukupno za platiti:<b>{ukupno} €</b></div>
+  <button type="submit" class="btn btn-primary">Plati</button>
+</form>
+          
+        </div>
+        </Modal.Body>
+      </Modal>
+    :""}
+      
     
 
      

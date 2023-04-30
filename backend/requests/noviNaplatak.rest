@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
       
-      "slika":"https://rabljenegume.com.hr/common/core/images/felni/4550/45181.JPG",
+      "slika":"https://rabljenegume.com.hr/common/core/images/felni/5081/50511.JPG",
       "tip":"Aluminijski",
       "cijena":0
     }

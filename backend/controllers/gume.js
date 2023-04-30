@@ -17,5 +17,18 @@ gumeRouter.delete('/:id', async(req,res)=>{
 
 })
 
+gumeRouter.post('/', async(req,res)=>{
+    const podatak=req.body
+
+    const novaGuma=new Guma({
+        slika:podatak.slika,
+        tip:podatak.tip,
+        marka:podatak.marka,
+        cijena:podatak.cijena
+
+    })
+    const spremiGumu=await novaGuma.save()
+    res.json(spremiGumu)
+})
 
 module.exports=gumeRouter
