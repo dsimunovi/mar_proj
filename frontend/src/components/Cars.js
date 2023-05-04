@@ -7,10 +7,8 @@ import tiresActions from "../services/tires"
 import rimsActions from "../services/rims"
 import Rims from "./Rims";
 import carsActions from '../services/cars';
-import "./CarReview.css"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import usersActions from "../services/users"
 
 
 
@@ -20,7 +18,6 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   const [startColor, setStartColor] = useState(boja);
   const [color, setColor] = useColor("hex", startColor);
   const [cars, postaviAute] = useState([])
-  const [nacin, postaviNacin]=useState("gotovina")
   const [checkGuma, setCheckGuma]=useState(false)
   const [checkNaplatak, setCheckNaplatak]=useState(false)
   const [visible, setVisible] = useState(false)
@@ -33,14 +30,12 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   const [user, setUser]=useState(null)
 
   const [tires,setTires]=useState({
-    id:"",
     slika:"/",
     marka:"/",
     tip:"/",
     cijena:"/"
   })
   const [rims,setRims]=useState({
-    id:"",
     slika:"/",
     tip:"/",
     cijena:"/"
