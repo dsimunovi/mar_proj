@@ -1,69 +1,65 @@
-const bcrypt=require('bcryptjs')
-const Korisnik=require('../models/korisnik')
-const korisniciRouter=require('express').Router()
+const bcrypt = require("bcryptjs");
+const Korisnik = require("../models/korisnik");
+const korisniciRouter = require("express").Router();
 
-korisniciRouter.get('/',async (req,res)=>{
-    const korisnici=await Korisnik.find({})
-      res.json(korisnici)
-})
+const dohvatiToken = (req) => {
+  const auth = req.get('Authorization')
+  if (auth && auth.toLowerCase().startsWith('bearer')){
+      return auth.substring(7)
+  }
+  return null
+}
 
+korisniciRouter.get("/", async (req, res) => {
+  const token = dohvatiToken(req)
+  const dekToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !dekToken.id) {
+      return res.status(401).json({ error: "Neispravni token" })
+  }
+  const korisnici = await Korisnik.find({})
+  res.json(korisnici);
+});
 
-korisniciRouter.get('/:id', async (req,res)=>{
-    const korisnik= await Korisnik.findById(req.params.id)
-    res.json(korisnik)
-})
+korisniciRouter.get("/:username", async (req, res) => {
+  const korisnik = await Korisnik.findOne({username: req.params.username})
+  res.json(korisnik);
+});
 
-korisniciRouter.post('/', async (req, res) => {
-    const {username,ime,email,passHash}=req.body
+korisniciRouter.post("/", async (req, res) => {
+  const { username, ime, email, passHash, admin } = req.body;
 
-    if(!username || !email || !ime || !passHash){
-        res.status(400)
-        throw new Error("Unesite sve podatke")
-    }
-
-    const postojeciKorisnik=await Korisnik.findOne({email} || {username})
-    if(postojeciKorisnik){
-        res.status(400)
-        throw new Error ("Korisnik već postoji!")
-    }
-    
-    const korisnik=Korisnik.create({
-        username:username,
-        ime:ime,
-        email:email,
-        passHash:passHash
+  if (!username || !email || !ime || !passHash) {
+     
+    return res.status(400).json({
+      error: "Unesite sve podatke"
     })
-    if(korisnik){
-        res.status(201).json({
-            username:korisnik.username,
-            ime:korisnik.ime,
-            email:korisnik.email,
+  }
 
-        })
-    }
-    else{
-        res.status(400)
-        throw new Error("Greška pri registraciji korisnika")
-    }
-})
+  const postojeciKorisnik = await Korisnik.findOne({ username });
+  if (postojeciKorisnik) {
+    return res.status(401).json({
+      error: "Korisnik već postoji!"
+    })
+  }
+  
 
-korisniciRouter.put('/:id',async(req,res)=>{
-    const podaci=req.body
-    const id=req.params.id
+  const korisnik = Korisnik.create({
+    username: username,
+    ime: ime,
+    email: email,
+    passHash: passHash,
+    admin: admin,
+  });
+  if (korisnik) {
+    res.status(201).json({
+      username: korisnik.username,
+      ime: korisnik.ime,
+      email: korisnik.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Greška pri registraciji korisnika");
+  }
+});
 
-    const korisnikUpdate={
-        auti:{
-            car:podaci.auti,
-            tire:podaci.gume,
-            rim:podaci.naplatci,
-            placanje:{
-                nacin:podaci.nacin,
-                brojRata:podaci.brojRata
-            }
-        }
-    } 
-    const updateKorisnik= await Korisnik.findByIdAndUpdate(id,korisnikUpdate,{new:true})
-    res.json(updateKorisnik)
-})
-
-module.exports=korisniciRouter
+module.exports = korisniciRouter;

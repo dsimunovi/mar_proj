@@ -1,14 +1,14 @@
-img{
-    height: 50px;
-    width: 50px;
+img {
+  height: 50px;
+  width: 50px;
 }
 
-.naplatci:hover{
-    transform: scale(1.2);
+.naplatci:hover {
+  transform: scale(1.2);
 }
-.naplatci{
-    animation: transform .2s;
-    border: none;
-    margin-bottom: 1rem;
-    border-left: 5px solid darkblue;
+.naplatci {
+  animation: transform 0.2s;
+  border: none;
+  margin-bottom: 1rem;
+  border-left: 5px solid darkblue;
 }

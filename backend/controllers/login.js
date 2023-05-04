@@ -1,33 +1,34 @@
-const jwt=require('jsonwebtoken')
-const bcrypt=require('bcrypt')
-const loginRouter=require('express').Router()
-const Korisnik=require('../models/korisnik')
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const loginRouter = require("express").Router();
+const Korisnik = require("../models/korisnik");
 
+loginRouter.post("/", async (req, res) => {
+  const podaci = req.body;
 
-loginRouter.post('/',async(req,res)=>{
+  const korisnik = await Korisnik.findOne({ username: podaci.username });
+  const passwordOK =
+    korisnik === null
+      ? false
+      : await bcrypt.compare(podaci.pass, korisnik.passHash);
 
-    const podaci=req.body
+  if (!(korisnik && passwordOK)) {
+    return res.status(401).json({
+      error: "Neispravno korisničko ime ili lozinka",
+    });
+  }
 
-    const korisnik=await Korisnik.findOne({username:podaci.username})
-    const passwordOK=korisnik===null 
-    ? false
-    : await bcrypt.compare(podaci.pass, korisnik.passHash)
+  const userToken = {
+    username: korisnik.username,
+    id: korisnik.id,
+  };
+  const token = jwt.sign(userToken, process.env.SECRET);
+  res.status(200).send({
+    token,
+    username: korisnik.username,
+    ime: korisnik.ime,
+    admin: korisnik.admin,
+  });
+});
 
-    if(!(korisnik && passwordOK)){
-        return res.status(401).json({
-            error:"Neispravno korisničko ime ili lozinka"
-        })
-    }
-
-    const userToken={
-        username: korisnik.username,
-        id:korisnik._id
-    }
-    const token=jwt.sign(userToken,process.env.SECRET)
-    res.status(200).send({
-        token,username:korisnik.username, ime:korisnik.ime
-    })
-
-})
-
-module.exports=loginRouter
+module.exports = loginRouter;

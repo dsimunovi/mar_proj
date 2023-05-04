@@ -1,52 +1,45 @@
-.login-glavni{
-    width: 100%;
-    height: 100vh;
-    background-image: url("https://hips.hearstapps.com/hmg-prod/images/dsc03346-1677272749.jpg");
-    background-size: cover;
-    background-position: 100%;
+.login-glavni {
+  width: 100%;
+  height: 100vh;
+  background-image: url("https://www.motorbiscuit.com/wp-content/uploads/2021/06/2021-Genesis-G90.jpg");
+  background-size: cover;
+  background-position: 100%;
 }
 
-#div-prijava{
-    width: 50%;
-    height: 65%;
-    
-    top: 5%;
-    position: absolute;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.498);
-    font-weight: bold;
-
+#div-prijava {
+  width: 50%;
+  height: 65%;
+  left: 50%;
+  top: 12.5%;
+  position: absolute;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.498);
+  font-weight: bold;
 }
 
-#div-reg{
-    width: 50%;
-    height: 90%;
-    
-    top: 5%;
-    position: absolute;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.498);
-    font-weight: bold;
-
+#div-reg {
+  width: 50%;
+  height: 90%;
+  left: 50%;
+  top: 12.5%;
+  position: absolute;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.498);
+  font-weight: bold;
 }
 
-
-
-
-#labela{
-    float: left;
-    font-size: 25px;
-    font-weight: bolder;
+#labela {
+  float: left;
+  font-size: 25px;
+  font-weight: bolder;
 }
 
-.prijava{
-    background-color: darkslategray;
-    border: none;
+.prijava {
+  background-color: darkslategray;
+  border: none;
 }
-.link-to-reg{
-        background-color: transparent;
-        border: none;
-        font-weight: bold;
-        
-    
+.link-to-reg {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
 }

@@ -1,35 +1,28 @@
-import React ,{useEffect,useState}from "react";
-import './Rims.css'
-import rimsActions from '../services/rims'
+import React, { useEffect, useState } from "react";
+import "./Rims.css";
+import rimsActions from "../services/rims";
 
-const Rims=({changeRims})=>{
+const Rims = ({ changeRims }) => {
+  const [rims, getRims] = useState([]);
+  const sviNaplatci = rims;
+  const novi = sviNaplatci.filter((rim) => rim.cijena !== 0);
 
-    const [rims, getRims]=useState([])
-    const sviNaplatci=rims
-    const novi=sviNaplatci.filter((rim)=>
-      rim.cijena!==0
-    )
-    
-    const content=novi.map((r)=>
-  
-      <option key={r.id} value={r.id} > {r.tip} {r.cijena}€</option>)
+  const content = novi.map((r) => (
+    <option key={r.id} value={r.id}>
+      {" "}
+      {r.tip} {r.cijena}€
+    </option>
+  ));
 
-      useEffect(()=>{
-        rimsActions.dohvatiSveNaplatke()
-        .then(res=>{
-          getRims(res.data)
-        console.log(res.data)})
-      },[]) 
-    return(
+  useEffect(() => {
+    rimsActions.dohvatiSveNaplatke().then((res) => {
+      getRims(res.data);
+      console.log(res.data);
+    });
+  }, []);
+  return (
+    <select onChange={(e) => changeRims(e.target.value)}>{content}</select>
+  );
+};
 
-
-        
-        <select 
-      onChange={(e)=>changeRims(e.target.value)} >
-        {content}
-
-      </select>
-        )
-}
-
-export default Rims
+export default Rims;

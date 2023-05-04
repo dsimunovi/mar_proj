@@ -1,215 +1,204 @@
-#car-card{
-    border-bottom: 2px inset black;
-    padding: 15px;
-    background-color: lightgrey;
+#car-card {
+  border-bottom: 2px inset black;
+  padding: 15px;
+  background-color: lightgrey;
 }
 
-#slika-auta{
-    height: 100%;
+#slika-auta {
+  height: 100%;
 }
 
-.me-1{
-    font-size: 2rem;
+.me-1 {
+  font-size: 2rem;
 }
-.mb-1{
-    display: flex;
-    justify-content: flex-end;
-    font-weight: bold;
-}
-
-
-#car-card{
-    margin: 0;
-    margin-bottom: 1%;
-    margin-top: 1%;
-    width: 100%;
-
-
+.mb-1 {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
 }
 
-
- .row{
-   display: flex;
-   flex-direction: column !important;
-   align-items: center;
-   max-width: 70%;
-   animation: transform 2s;
+#car-card {
+  margin: 0;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  width: 100%;
 }
 
-.row:hover{
-    transform: scale(1.05);
-    background-color: lavender !important;
-    font-weight: bold;
-    font-size: larger;
+.row {
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  max-width: 70%;
+  animation: transform 2s;
 }
 
-.row-1{
+.row:hover {
+  transform: scale(1.05);
+  background-color: lavender !important;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.row-1 {
   display: flex;
   justify-content: flex-end;
 }
 
-.promjenjeno{
-    margin-left: 3%;
+.promjenjeno {
+  margin-left: 3%;
 }
-.stavke{
-    margin-left: 5%;
-    color: red;
-}
-
-#info-car{
-    align-items: center;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    
-}
-#info-car>#cijena{
-    font-size: 25px;
-}
-.flex-col img{
-    width: 100px;
-    height: 100px;
+.stavke {
+  margin-left: 5%;
+  color: red;
 }
 
-.promjenjeno img{
-    width: 85px;
-    height: 85px;
+#info-car {
+  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#info-car > #cijena {
+  font-size: 25px;
+}
+.flex-col img {
+  width: 100px;
+  height: 100px;
 }
 
-.cijena{
-    font-size: 20px;
+.promjenjeno img {
+  width: 85px;
+  height: 85px;
 }
 
-#cijenaAuto{
-    font-size: 25px;
+.cijena {
+  font-size: 20px;
 }
 
-#glavni{
-    border: 1px solid lightgray;
-    display: flex;
-    flex-direction: row;
-    z-index: 999;
-    
-    
+#cijenaAuto {
+  font-size: 25px;
 }
 
-
-
-img{
-    width: 150px;
-    height: 150px;
+#glavni {
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: row;
+  z-index: 999;
 }
 
-.labele{
-    margin-top: 15px;
-    font-weight: bold;
-}
-.n-g{
-    display: flex;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 10px;
-    margin: 5px;
-    flex-direction: column;
-    animation: transform .2s;
-    
+img {
+  width: 150px;
+  height: 150px;
 }
 
-#column-flex{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.labele {
+  margin-top: 15px;
+  font-weight: bold;
+}
+.n-g {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+  flex-direction: column;
+  animation: transform 0.2s;
 }
 
-
-.n-g:hover{
-    transform: scale(1.5);
+#column-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.flex-row-1{
-    display: flex;
-    gap: 10px;
-    justify-content: space-around;
+.n-g:hover {
+  transform: scale(1.5);
 }
 
-.flex-column-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.flex-row-1 {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
 }
 
-.flex-row-color{
-    margin-bottom: 15px;
+.flex-column-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.postavi{
-    margin-top: 10px;
-    background-color: black;
-    color: white;
-    border-radius: 3px;
-    border: 2px solid darkmagenta;
+.flex-row-color {
+  margin-bottom: 15px;
 }
 
-.postavi:hover{
-    background-color: darkmagenta;
+.postavi {
+  margin-top: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  border: 2px solid darkmagenta;
 }
 
-.slike-sel{
-    height: 250px;
-    width: 250px;
-    border-radius: 5%;
-    margin: 30px 0px;
+.postavi:hover {
+  background-color: darkmagenta;
 }
 
-#botun{
-    display: flex;
-    justify-content: space-around;
-    margin-left: 30px;
-    width: inherit;
+.slike-sel {
+  height: 250px;
+  width: 250px;
+  border-radius: 5%;
+  margin: 30px 0px;
 }
 
-.flex-review{
-    display: flex;
-    flex-direction: column;
-}
-.flex-review-column{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#botun {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 30px;
+  width: inherit;
 }
 
-.image-review{
-    width: 130px;
-    height: 120px;
+.flex-review {
+  display: flex;
+  flex-direction: column;
+}
+.flex-review-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.image-review>img{
-    width: 100%;
-    height: 100%;
+.image-review {
+  width: 130px;
+  height: 120px;
 }
 
-.red{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-.flex-col{
-    width: 50%;
-}
-#odabir{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
+.image-review > img {
+  width: 100%;
+  height: 100%;
 }
 
-.payment-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 50%;
+.red {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
-#ukupno{
-    font-weight: bold;
-    font-size: 30px;
+.flex-col {
+  width: 50%;
+}
+#odabir {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+}
+#ukupno {
+  font-weight: bold;
+  font-size: 30px;
 }

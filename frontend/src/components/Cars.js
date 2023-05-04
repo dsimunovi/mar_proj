@@ -14,7 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci})=>{
+const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,prodano})=>{
   const [startColor, setStartColor] = useState(boja);
   const [color, setColor] = useColor("hex", startColor);
   const [cars, postaviAute] = useState([])
@@ -26,9 +26,9 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   const [lgShow, setLgShow] = useState(false);
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
-  const [payment,setPayment]=useState(false)
-  const [user, setUser]=useState(null)
-
+  const [korisnik, postaviKorisnika]=useState(null)
+  const [chosenTire,setChosenTire]=useState()
+  const [chosenRim,setChosenRim]=useState()
   const [tires,setTires]=useState({
     slika:"/",
     marka:"/",
@@ -40,26 +40,28 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
     tip:"/",
     cijena:"/"
   })
+  const [prodaja,postaviProdaju]=useState(prodano)
 
-  
    let ukupno=cijena+tires.cijena+rims.cijena
-  
+
+
+
 const izmjenaAuta=(id)=>{
   const auto=cars.find((c)=>c.id===id)
   const modCar={
     ...auto,
     boja:startColor,
     gume:tires.id,
-    naplatci:rims.id
+    naplatci:rims.id,
+    prodano:true
     
   }
   carsActions.osvjezi(id,modCar, {new:true})
-  .then(res=>{
-
-  }
-  )
+  window.location.reload()
 }
- const [chosenRim,setChosenRim]=useState()
+
+
+
 
   const pronadiNaplatak=()=>{
     if(!checkNaplatak){
@@ -68,7 +70,7 @@ const izmjenaAuta=(id)=>{
       setRims(res.data)
     })}
     else{
-      rimsActions.dohvatiJedanNaplatak(naplatci.id)
+      rimsActions.dohvatiJedanNaplatak(naplatci)
       .then(res=>{
         setRims(res.data)
       })
@@ -78,7 +80,7 @@ const izmjenaAuta=(id)=>{
   
   
 
-  const [chosenTire,setChosenTire]=useState()
+ 
   const pronadiGumu=()=>{
     if(!checkGuma){
     tiresActions.dohvatiJedneGume(chosenTire)
@@ -86,7 +88,7 @@ const izmjenaAuta=(id)=>{
       setTires(res.data)
    })}
       else{
-        tiresActions.dohvatiJedneGume(gume._id)
+        tiresActions.dohvatiJedneGume(gume)
         .then(res=>{
           setTires(res.data)
         })
@@ -97,6 +99,7 @@ const izmjenaAuta=(id)=>{
   
 
     const handleChange = () => {
+       postaviProdaju(true)
         izmjenaAuta(id)
         setShow(true)
     }
@@ -107,6 +110,15 @@ const izmjenaAuta=(id)=>{
     setVisible(true)
   }
 
+  useEffect(() => {
+    const logiraniKorisnikJSON = window.localStorage.getItem(
+      "prijavljeniKorisnik"
+    );
+    if (logiraniKorisnikJSON) {
+      const korisnik = JSON.parse(logiraniKorisnikJSON);
+      postaviKorisnika(korisnik);
+    }
+  }, []);
 
 useEffect(() => {
   carsActions.dohvatiSve()
@@ -260,6 +272,7 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
           <div className='red'>
             <div className='flex-col'>
           <div  id='info-car'>
+          <div>{id}</div>
             <div><img src={slika}/></div>
             <div>{marka}</div>
             <div>{model}</div>
@@ -289,29 +302,9 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
           </div></div>
                 
           <form>
-  <div class="form-group">
-    <label>Vrsta plaćanja:</label>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="paymentType" id="cash" value="gotovina" checked/>
-      <label class="form-check-label" for="cash">Gotovina</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="paymentType" id="card" value="kartica"/>
-      <label class="form-check-label" for="card">Kartica</label>
-    </div>
-  </div>
-  <div class="form-group" id="installmentFields">
-    <label for="installments">Broj rata:</label>
-    <select class="form-control" id="installments" name="installments">
-      <option value="1">Jednokratno</option>
-      <option value="2">2 rate</option>
-      <option value="3">3 rate</option>
-      <option value="4">4 rate</option>
-      <option value="5">5 rata</option>
-    </select>
-  </div>
+  
   <div id="cijenaAuto">Ukupno za platiti:<b>{ukupno} €</b></div>
-  <button type="submit" class="btn btn-primary">Plati</button>
+  <button type="submit" className="btn btn-primary" >Plati</button>
 </form>
           
         </div>
