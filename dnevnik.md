@@ -90,3 +90,31 @@ Pocetak | Kraj
 13:00 | 00:02
 ### Kratki opis promjena
 Riješen problem s update-om, još povezati korisnika s kupljenim autom 
+
+## 5.5.2023.
+Pocetak | Kraj
+------- | ----
+15:00 | 21:43
+### Kratki opis promjena
+Problem s povezivanjem ponovnim loginom nakon kupnje auta.
+
+## 7.5.2023.
+Pocetak | Kraj
+------- | ----
+13:07 | 20:32
+### Kratki opis promjena
+Isti problem kao prethodni.
+
+## 19.5.2023.
+Pocetak | Kraj
+------- | ----
+19:00 | 22:12
+### Kratki opis promjena
+Isti problem.
+
+## 22.5.2023.
+Pocetak | Kraj
+------- | ----
+17:00 | 21:27
+### Kratki opis promjena
+Riješen problem s loginom nakon kupnje auta, još dovršiti admin stranu i testove napraviti.
