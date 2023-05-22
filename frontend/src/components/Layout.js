@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import Slideshow from "./Slider";
 import korisniciAkcije from '../services/users'
-
+import kupnjaAkcija from '../services/buy'
 
 const Layout = (props) => {
 
@@ -17,8 +17,10 @@ const Layout = (props) => {
     if (logiraniKorisnikJSON) {
       const korisnik = JSON.parse(logiraniKorisnikJSON);
       postaviKorisnika(korisnik);
+      kupnjaAkcija.postaviToken(korisnik.token)
       korisniciAkcije.dohvatiJednogKorisnika(korisnik.username)
                 .then(res => postaviKor(res.data))
+
     }
   }, []);
 

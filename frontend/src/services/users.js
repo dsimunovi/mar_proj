@@ -2,25 +2,17 @@ import axios from "axios";
 
 const Url = "http://localhost:3001/api/users";
 
-let token = null
-const postaviToken = (noviToken) => {
-    token = `bearer ${noviToken}`
-}
 
 const dohvatiSveKorisnike = () => {
-  const config = {
-    headers: { Authorization: token }
-}
-  const odg=axios.get(Url,config);
-  return odg
+  return axios.get(Url)
 };
 
 const stvoriKorisnika = (noviKorisnik) => {
   return axios.post(Url, noviKorisnik);
 };
 
-const osvjeziKorisnika = (id, noviKorisnik) => {
-  return axios.put(`${Url}/${id}`, noviKorisnik);
+const osvjeziKorisnika = (username, noviKorisnik) => {
+  return axios.put(`${Url}/${username}`, noviKorisnik);
 };
 
 const brisiKorisnika = (id) => {
@@ -35,6 +27,5 @@ export default {
   stvoriKorisnika,
   osvjeziKorisnika,
   brisiKorisnika,
-  dohvatiJednogKorisnika,
-  postaviToken
+  dohvatiJednogKorisnika
 };

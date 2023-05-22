@@ -3,7 +3,6 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import prijavaAkcije from "../services/login";
 import { useNavigate } from "react-router-dom";
-import korisniciAkcije from '../services/users'
 
 const Prijava = () => {
 
@@ -23,12 +22,13 @@ const Prijava = () => {
           JSON.stringify(korisnik)
           
         );
-        korisniciAkcije.dohvatiJednogKorisnika(korisnik.username)
+        
+       
         
         promjenaImena("");
         promjenaLozinke("");
         navigate('/home')
-        window.location.reload()
+        window.location.reload(false)
       } catch (exception) {
         alert("Neispravni podaci");
         promjenaImena("");

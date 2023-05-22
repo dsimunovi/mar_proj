@@ -1,4 +1,4 @@
-#div1 {
+nav {
   background-color: #f8f9fa;
 }
 
@@ -20,4 +20,16 @@
 .flex-app {
   display: flex;
   flex-wrap: wrap;
+}
+
+.navigacija{
+  background-color: rgb(207, 207, 207) !important;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0px 2%
+}
+
+.ime{
+  padding: 0.5rem 1rem;
 }

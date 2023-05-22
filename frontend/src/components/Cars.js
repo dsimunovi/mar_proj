@@ -9,12 +9,18 @@ import Rims from "./Rims";
 import carsActions from '../services/cars';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import './Payment.css'
+import korisnikAkcije from '../services/users'
+import kupnjaAkcije from '../services/buy'
+
 
 
 
 
 
 const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,prodano})=>{
+  const [korisnik, postaviKorisnika] = useState(null)
+  const [user,setUser]=useState(null)
   const [startColor, setStartColor] = useState(boja);
   const [color, setColor] = useColor("hex", startColor);
   const [cars, postaviAute] = useState([])
@@ -26,7 +32,6 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
   const [lgShow, setLgShow] = useState(false);
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
-  const [korisnik, postaviKorisnika]=useState(null)
   const [chosenTire,setChosenTire]=useState()
   const [chosenRim,setChosenRim]=useState()
   const [tires,setTires]=useState({
@@ -40,10 +45,18 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
     tip:"/",
     cijena:"/"
   })
-  const [prodaja,postaviProdaju]=useState(prodano)
+  const handleClose = () => setShow(false);
+  const [brKartice,postaviKarticu]=useState("")
+  const [istekGodina, postaviIstekGodina]=useState("")
+  const [istekMjesec, postaviIstekMjesec]=useState("")
+  const [cvv, postaviCvv]=useState("")
+
+  
 
    let ukupno=cijena+tires.cijena+rims.cijena
-
+   var ukupno_ispis=ukupno.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+   var cifra = cijena.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+   
 
 
 const izmjenaAuta=(id)=>{
@@ -57,11 +70,27 @@ const izmjenaAuta=(id)=>{
     
   }
   carsActions.osvjezi(id,modCar, {new:true})
-  window.location.reload()
 }
 
+const kupnjaAuta=(e)=>{
+  e.preventDefault()
+  try{
+  kupnjaAkcije.stvori({
+    car:id,
+    tire:tires.id,
+    rim:rims.id,
+    brKartice:brKartice,
+    mjesec:istekMjesec,
+    godina:istekGodina,
+    cvv:cvv
+  })
+  window.location.reload(true)
+}
+  catch{
+    alert ("Neispravni podaci")
+  }
 
-
+}
 
   const pronadiNaplatak=()=>{
     if(!checkNaplatak){
@@ -77,7 +106,6 @@ const izmjenaAuta=(id)=>{
     }
     setVisibleRim(true)
   } 
-  
   
 
  
@@ -99,7 +127,6 @@ const izmjenaAuta=(id)=>{
   
 
     const handleChange = () => {
-       postaviProdaju(true)
         izmjenaAuta(id)
         setShow(true)
     }
@@ -110,16 +137,8 @@ const izmjenaAuta=(id)=>{
     setVisible(true)
   }
 
-  useEffect(() => {
-    const logiraniKorisnikJSON = window.localStorage.getItem(
-      "prijavljeniKorisnik"
-    );
-    if (logiraniKorisnikJSON) {
-      const korisnik = JSON.parse(logiraniKorisnikJSON);
-      postaviKorisnika(korisnik);
-    }
-  }, []);
 
+  
 useEffect(() => {
   carsActions.dohvatiSve()
   .then(res => postaviAute(res.data))
@@ -136,7 +155,17 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
       setRims(res.data)
       setVisibleRim(true)
     })},[]) 
-
+useEffect(()=>{
+  const logiraniKorisnikJSON = window.localStorage.getItem(
+    "prijavljeniKorisnik"
+);
+if (logiraniKorisnikJSON) {
+  const korisnik=JSON.parse(logiraniKorisnikJSON)
+    postaviKorisnika(korisnik);
+    kupnjaAkcije.postaviToken(korisnik.token)
+    
+}
+},[])
 
     return(
          
@@ -163,7 +192,7 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
                             <i className="fa fa-star"></i>
                           </div>
 
-                        <div className="mt-1 mb-0 text-muted small">
+                        <div className='info'>
                           <span>{kilometri} km</span>
                           <span className="text-primary"> • </span>
                           <span>{godiste}</span>
@@ -174,17 +203,18 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
                           <span className="text-primary"> • </span>
                           <span>{mjenjac} mjenjač</span>
                         </div>
-                      
+                        
                       </div>
-                      <div className='row-1'>
-                      <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                        <div className="d-flex flex-row align-items-center mb-1">
-                          <label className="mb-1 me-1">{cijena} €</label> {/*trenutna cijena */}
+                      <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none  cijena">
+                        <div className="d-flex flex-row align-items-center mb-1 cijenaAuta">
+                          <label className="mb-1 me-1">{cifra} €</label> {/*trenutna cijena */}
                         </div>
                         <div className="d-flex flex-column mt-4">
                         <Button style={{backgroundColor:'black', border:'2px solid darkmagenta'}} variant="primary" onClick={() => setLgShow(true)}>Kupi</Button>
                         </div>
                       </div>
+                      <div className='row-1'>
+                      
                     </div>
                     </div>
                  
@@ -264,53 +294,107 @@ useEffect(()=>{rimsActions.dohvatiJedanNaplatak(naplatci)
         </Modal.Footer>
       </Modal>
 
-    {show ? <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Plaćanje</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className='red'>
-            <div className='flex-col'>
-          <div  id='info-car'>
-          <div>{id}</div>
-            <div><img src={slika}/></div>
-            <div>{marka}</div>
-            <div>{model}</div>
-            <div>{kilometri} km</div>
-            <div>{godiste}. god</div>
-            <div>{mjenjac} mjenjač</div>
-            <div>{snagaMotora} kW</div>
-            <div>{vrstaMotora}</div>
-            <div id="cijenaAuto">Cijena auta:<b>{cijena} €</b></div>
-          </div>
-          <div id='odabir'>
+    
+    {show?
+     <Modal show={show} size="lg" onHide={handleClose}>
+     <Modal.Header closeButton>
+       <Modal.Title>Modal heading</Modal.Title>
+     </Modal.Header>
+     <Modal.Body>
+     <div className="padding">
+<div className="row">
+<div className="col-sm-6">
+<div className="card">
+<div className="card-header">
+<strong>Kreditna kartica</strong>
+</div>
+<div className="card-body">
+<div className="row">
+<div className="col-sm-12">
+<div className="form-group">
+    
 
-            <div className='promjenjeno'> Gume:
-            <div className='stavke'><img src={tires.slika}/></div>
-            <div className='stavke'>{tires.marka}</div>
-            <div className='stavke'>{tires.tip}</div>
-            <div className='stavke cijena'><b>{tires.cijena} €</b></div>
-            </div>
-            
-            
-            <div className='promjenjeno'>Naplatci:
-              <div className='stavke'><img src={rims.slika}/></div>
-              <div className='stavke'>{rims.tip}</div>
-              <div className='stavke cijena' ><b>{rims.cijena} €</b></div>
-            </div>
-            <div className='promjenjeno'>Boja: <div className='stavke' style={{width:'30px',height:'30px',backgroundColor:`${startColor}`}}></div></div>
-          </div></div>
-                
-          <form>
-  
-  <div id="cijenaAuto">Ukupno za platiti:<b>{ukupno} €</b></div>
-  <button type="submit" className="btn btn-primary" >Plati</button>
-</form>
-          
-        </div>
-        </Modal.Body>
-      </Modal>
-    :""}
+    
+<label htmlFor="name">Ime kupca</label>
+<input className="form-control" id="name" type="text" placeholder="Enter your name" />
+</div>
+</div>
+</div>
+
+<div className="row">
+<div className="col-sm-12">
+<div className="form-group">
+<label htmlFor="ccnumber">Broj kreditne kartice</label>
+
+
+<div className="input-group">
+<input className="form-control" type="text" placeholder="0000 0000 0000 0000" value={brKartice.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim()} onChange={(e)=>postaviKarticu(e.target.value)}/>
+<div className="input-group-append">
+<span className="input-group-text">
+<i className="mdi mdi-credit-card"></i>
+</span>
+</div>
+</div> 
+</div>
+</div>
+</div>
+
+<div className="row">
+<div className="form-group col-sm-4">
+<label htmlFor="ccmonth">Mjesec</label>
+<select className="form-control" id="ccmonth" onChange={(e)=>postaviIstekMjesec(e.target.value)}>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+</select>
+</div>
+<div className="form-group col-sm-4">
+<label htmlFor="ccyear">Godina</label>
+<select className="form-control" id="ccyear" onChange={(e)=>postaviIstekGodina(e.target.value)}>
+<option>2023</option>
+<option>2024</option>
+<option>2025</option>
+<option>2026</option>
+<option>2027</option>
+<option>2028</option>
+<option>2029</option>
+<option>2030</option>
+<option>2031</option>
+<option>2032</option>
+<option>2033</option>
+<option>2034</option>
+</select>
+</div>
+<div className="col-sm-4">
+<div className="form-group">
+<label htmlFor="cvv">CVV/CVC</label>
+<input className="form-control" id="cvv" type="text" placeholder="123" onChange={(e)=>postaviCvv(e.target.value)}/>
+</div>
+</div>
+</div>
+
+</div>
+<div className="card-footer">
+<button className="btn btn-sm btn-success float-right" type="submit" onClick={kupnjaAuta}>
+<i className="mdi mdi-gamepad-circle"></i> Kupi</button>
+<button className="btn btn-sm btn-danger" type="reset">
+<i className="mdi mdi-lock-reset"></i> Odustani</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+     </Modal.Body>
+   </Modal>:""}
       
     
 

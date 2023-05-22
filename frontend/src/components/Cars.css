@@ -1,49 +1,13 @@
-#car-card {
-  border-bottom: 2px inset black;
-  padding: 15px;
-  background-color: lightgrey;
-}
-
-#slika-auta {
-  height: 100%;
-}
-
-.me-1 {
-  font-size: 2rem;
-}
-.mb-1 {
-  display: flex;
-  justify-content: flex-end;
-  font-weight: bold;
-}
-
-#car-card {
-  margin: 0;
-  margin-bottom: 1%;
-  margin-top: 1%;
-  width: 100%;
-}
-
-.row {
-  display: flex;
-  flex-direction: column !important;
-  align-items: center;
-  max-width: 70%;
-  animation: transform 2s;
-}
-
-.row:hover {
-  transform: scale(1.05);
-  background-color: lavender !important;
-  font-weight: bold;
-  font-size: larger;
-}
 
 .row-1 {
   display: flex;
   justify-content: flex-end;
 }
-
+.postavi{
+  color: white;
+  background-color: black;
+  margin-top: 2%;
+}
 .promjenjeno {
   margin-left: 3%;
 }
@@ -131,17 +95,7 @@ img {
   margin-bottom: 15px;
 }
 
-.postavi {
-  margin-top: 10px;
-  background-color: black;
-  color: white;
-  border-radius: 3px;
-  border: 2px solid darkmagenta;
-}
 
-.postavi:hover {
-  background-color: darkmagenta;
-}
 
 .slike-sel {
   height: 250px;
@@ -192,13 +146,44 @@ img {
   justify-content: space-around;
 }
 
-.payment-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 50%;
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+
+#slika-auta{
+ height: fit-content;
 }
-#ukupno {
-  font-weight: bold;
-  font-size: 30px;
+#main-car{
+  display: flex;
+  margin-bottom: 2%;
+  background-color: rgba(64, 8, 68, 0.34);
+  height: fit-content;
+  align-items: center;
+}
+
+.cijena{
+ justify-content: center !important;
+}
+
+.cijenaAuta{
+  justify-content: center !important;
+  font-size: xx-large;
+}
+#car-card{
+  width: 100%;
+  align-items: center;
+}
+
+.info{
+  font-size: large;
+  color: rgb(64, 17, 70);
+  font-family: 'Rubik Dirt', cursive;
+  
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+}
+
+.padding{
+  background-color:mediumpurple;
 }

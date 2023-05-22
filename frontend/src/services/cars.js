@@ -24,4 +24,6 @@ const dohvatiJednog = async (id) => {
   return axios.get(`${osnovniUrl}/${id}`);
 };
 
+
+
 export default { dohvatiSve, stvori, osvjezi, brisi, dohvatiJednog};

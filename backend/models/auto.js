@@ -39,18 +39,13 @@ const autoSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  nacinPlacanja: String,
-  brRata: {
-    type: Number,
-    default: 1,
-  },
   gume: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Gume",
+    ref: "Guma",
   },
   naplatci: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Naplatci",
+    ref: "Naplatak",
   },
   korisnik: {
     type: mongoose.Schema.Types.ObjectId,

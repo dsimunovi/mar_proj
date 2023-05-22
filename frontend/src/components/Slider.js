@@ -57,7 +57,7 @@ const Slideshow = () => {
       <div style={{ textAlign: "center", fontSize: "3rem" }}>
         Dobro došli!
         <div style={{ fontSize: "1.5rem", margin: "5%" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut
           felis sagittis, dignissim sem vel, mollis augue. Nam posuere, est
           vitae volutpat ultrices, nisl nisl euismod est, a vehicula magna risus
           congue tortor. Ut facilisis sagittis lectus, gravida porttitor nulla
@@ -66,7 +66,7 @@ const Slideshow = () => {
           elit. Pellentesque habitant morbi tristique senectus et netus et
           malesuada fames ac turpis egestas. Curabitur lacus dui, auctor ac est
           eget, finibus porttitor elit. In ac turpis placerat, varius elit eu,
-          condimentum est. Nullam id neque dolor. Nam lacinia quam eu velit.
+          condimentum est. Nullam id neque dolor. Nam lacinia quam eu velit."
         </div>
       </div>
     </div>

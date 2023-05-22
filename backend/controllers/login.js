@@ -5,8 +5,10 @@ const Korisnik = require("../models/korisnik");
 
 loginRouter.post("/", async (req, res) => {
   const podaci = req.body;
+  console.log(podaci)
 
   const korisnik = await Korisnik.findOne({ username: podaci.username });
+  console.log(korisnik)
   const passwordOK =
     korisnik === null
       ? false
@@ -30,5 +32,9 @@ loginRouter.post("/", async (req, res) => {
     admin: korisnik.admin,
   });
 });
+
+loginRouter.delete('/',async(req,res)=>{
+  
+})
 
 module.exports = loginRouter;

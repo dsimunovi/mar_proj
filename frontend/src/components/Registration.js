@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import ValidateEmail from "./provjere";
 
 const Registracija = () => {
-  const [usernameReg, promjenaNicka] = useState("");
-  const [nameReg, promjenaNamea] = useState("");
-  const [emailReg, promjenaEmail] = useState("");
-  const [passReg, promjenaPassworda] = useState("");
+  const [username, promjenaNicka] = useState("");
+  const [ime, promjenaNamea] = useState("");
+  const [email, promjenaEmail] = useState("");
+  const [pass, promjenaPassworda] = useState("");
   const[provjera, postaviProvjeru]=useState([])
   const provjeriKorisnika=(username)=>{
     usersActions.dohvatiJednogKorisnika(username)
@@ -19,22 +19,25 @@ const Registracija = () => {
   const userRegistration = async (e) => {
     e.preventDefault();
     try {
-      if(ValidateEmail(emailReg)){
-        alert('email neispravan ')
-        return
+      if(!ValidateEmail(email)){
+        return(
+          <div>
+            Krivi e-mail
+          </div>
+        )
+      
       }
-      else{const korisnikNovi = await usersActions.stvoriKorisnika({
-        username: usernameReg,
-        ime: nameReg,
-        email: emailReg,
-        passHash: passReg,
+      const korisnikNovi = await usersActions.stvoriKorisnika({
+        username,ime,pass,email
       });
       promjenaNicka("");
       promjenaNamea("");
       promjenaEmail("");
       promjenaPassworda("");
-      alert("Uspješno ste se registrirali")}
-    } catch (exception) {
+      alert("Uspješno ste se registrirali")
+      window.location.reload(true)}
+      
+     catch (exception) {
       alert("Probajte s drugim podacima");
        promjenaNicka("");
       promjenaNamea("");
@@ -63,7 +66,7 @@ const Registracija = () => {
                   id="registerUsername"
                   className="form-control"
                   name="username"
-                  value={usernameReg}
+                  value={username}
                   onChange={(e) => promjenaNicka(e.target.value)}
                 />
                 <label
@@ -80,13 +83,13 @@ const Registracija = () => {
                   id="registerName"
                   className="form-control"
                   name="name"
-                  value={nameReg}
+                  value={ime}
                   onChange={(e) => promjenaNamea(e.target.value)}
                 />
                 <label
                   className="form-label"
                   htmlFor="registerName"
-                  id="nameReg"
+                  id="ime"
                 >
                   Name
                 </label>
@@ -97,13 +100,13 @@ const Registracija = () => {
                   id="registerEmail"
                   className="form-control"
                   name="email"
-                  value={emailReg}
+                  value={email}
                   onChange={(e) => promjenaEmail(e.target.value)}
                 />
                 <label
                   className="form-label"
                   htmlFor="registerEmail"
-                  id="emailReg"
+                  id="email"
                 >
                   E-mail
                 </label>
@@ -115,13 +118,13 @@ const Registracija = () => {
                   id="registerPassword"
                   className="form-control"
                   name="pass"
-                  value={passReg}
+                  value={pass}
                   onChange={(e) => promjenaPassworda(e.target.value)}
                 />
                 <label
                   className="form-label"
                   htmlFor="registerPassword"
-                  id="passReg"
+                  id="pass"
                 >
                   Password
                 </label>
@@ -129,7 +132,7 @@ const Registracija = () => {
               <div className="d-flex justify-content-center links">
                 Have an account?
                 <button className="link-to-reg">
-                  <Link to="/sign-in">Sign in</Link>
+                  <Link to="/">Sign in</Link>
                 </button>
               </div>
 

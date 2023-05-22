@@ -16,9 +16,10 @@ const korisnikSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  cars: [{
+  kupnje: [{
+      
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Auto'
+        ref:'Kupnja'
 }],
 });
 korisnikSchema.plugin(uniqueValidator);
@@ -32,13 +33,7 @@ korisnikSchema.set("toJSON", {
   },
 });
 
-korisnikSchema.pre("save", async function (next) {
-  if (!this.isModified) {
-    next();
-  }
-  const salt = await bcrypt.genSalt(10);
-  this.passHash = await bcrypt.hash(this.passHash, salt);
-});
+
 
 const Korisnik = mongoose.model("Korisnik", korisnikSchema, "korisnici");
 

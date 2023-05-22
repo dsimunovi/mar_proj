@@ -10,6 +10,7 @@ const middleware = require("./utils/middleware");
 const config = require("./utils/config");
 const logger = require("./utils/logger");
 const bodyparser = require("body-parser");
+const kupnjaRouter = require("./controllers/kupnja");
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +19,7 @@ app.use("/api/tires", gumeRouter);
 app.use("/api/rims", naplatciRouter);
 app.use("/api/users", korisniciRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/kupnje",kupnjaRouter)
 
 app.use(middleware.nepoznataRuta);
 app.use(middleware.errorHandler);
