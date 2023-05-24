@@ -2,16 +2,13 @@ const mongoose = require("mongoose");
 
 const naplatakSchema = new mongoose.Schema({
   slika: {
-    type: String,
-    required: true,
+    type: String
   },
   tip: {
-    type: String,
-    required: true,
+    type: String
   },
   cijena: {
-    type: Number,
-    required: true,
+    type: Number
   },
 });
 naplatakSchema.set("toJSON", {

@@ -7,9 +7,14 @@ const SviAuti=()=>{
 
 
 const [cars, getCars] = useState([]);
-const [print, printAll] = useState();
 const svi = cars.filter((car)=>car.prodano===false);
 
+const brisanjeAuta=(id)=>{
+  carsActions.brisi(id)
+  .then(res=>{
+    getCars(cars.filter(c => c.id !== id))
+  })
+}
 
 useEffect(() => {
   carsActions.dohvatiSve().then((res) => {
@@ -37,6 +42,7 @@ return(
                     boja={c.boja}
                     naplatci={c.naplatci}
                     prodano={c.prodano}
+                    brisanjeAuta={()=>brisanjeAuta(c.id)}
                   />
                 ))}
             </div>

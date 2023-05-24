@@ -9,9 +9,9 @@ import Rims from "./Rims";
 import carsActions from '../services/cars';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import './Payment.css'
 import korisnikAkcije from '../services/users'
 import kupnjaAkcije from '../services/buy'
+
 
 
 
@@ -46,10 +46,10 @@ const Cars=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjen
     cijena:"/"
   })
   const handleClose = () => setShow(false);
-  const [brKartice,postaviKarticu]=useState("")
-  const [istekGodina, postaviIstekGodina]=useState("")
-  const [istekMjesec, postaviIstekMjesec]=useState("")
-  const [cvv, postaviCvv]=useState("")
+  const [brKartice,postaviKarticu]=useState('')
+  const [istekGodina, postaviIstekGodina]=useState('')
+  const [istekMjesec, postaviIstekMjesec]=useState('')
+  const [cvv, postaviCvv]=useState('')
 
   
 
@@ -71,27 +71,40 @@ const izmjenaAuta=(id)=>{
   }
   carsActions.osvjezi(id,modCar, {new:true})
 }
-
 const kupnjaAuta=(e)=>{
   e.preventDefault()
   try{
-  kupnjaAkcije.stvori({
-    car:id,
-    tire:tires.id,
-    rim:rims.id,
-    brKartice:brKartice,
-    mjesec:istekMjesec,
-    godina:istekGodina,
-    cvv:cvv
-  })
-  window.location.reload(true)
+    if(istekGodina==='' || istekMjesec==='' || brKartice.length!==19 || cvv==='' || cvv.length!==3){
+      alert("Niste unijeli sve podatke za plaćanje!")
+      return;
+      
+    }
+    kupnjaAkcije.stvori({
+      car:id,
+      tire:tires.id,
+      rim:rims.id,
+      brKartice:brKartice,
+      mjesec:istekMjesec,
+      godina:istekGodina,
+      cvv:cvv
+    })
+    window.location.reload(true)
 }
   catch{
     alert ("Neispravni podaci")
   }
 
 }
+const prodanoStanje=(id)=>{
+  const auto=cars.find((c)=>c.id===id)
+  const modCar={
+    ...auto,
+    prodano:false
+    
+  }
+  carsActions.osvjezi(id,modCar, {new:true})
 
+}
   const pronadiNaplatak=()=>{
     if(!checkNaplatak){
     rimsActions.dohvatiJedanNaplatak(chosenRim)
@@ -131,7 +144,10 @@ const kupnjaAuta=(e)=>{
         setShow(true)
     }
 
-    
+    const handleChangeClose=()=>{
+      prodanoStanje(id)
+      handleClose()
+    }
   const changeColor = () => {
     setStartColor(color.hex)
     setVisible(true)
@@ -296,7 +312,7 @@ if (logiraniKorisnikJSON) {
 
     
     {show?
-     <Modal show={show} size="lg" onHide={handleClose}>
+     <Modal show={show} size="lg" onHide={handleChangeClose}>
      <Modal.Header closeButton>
        <Modal.Title>Modal heading</Modal.Title>
      </Modal.Header>
@@ -311,13 +327,6 @@ if (logiraniKorisnikJSON) {
 <div className="card-body">
 <div className="row">
 <div className="col-sm-12">
-<div className="form-group">
-    
-
-    
-<label htmlFor="name">Ime kupca</label>
-<input className="form-control" id="name" type="text" placeholder="Enter your name" />
-</div>
 </div>
 </div>
 

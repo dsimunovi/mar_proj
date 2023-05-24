@@ -24,6 +24,7 @@ gumeRouter.post("/", async (req, res) => {
     tip: podatak.tip,
     marka: podatak.marka,
     cijena: podatak.cijena,
+    original:podatak.original
   });
   const spremiGumu = await novaGuma.save();
   res.json(spremiGumu);

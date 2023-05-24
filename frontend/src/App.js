@@ -7,6 +7,10 @@ import Registracija from "./components/Registration";
 import PonudaAuta from "./pages/Cars";
 import Footer from "./components/Footer";
 import SviAuti from "./pages/Cars-admin";
+import MojeKupnje from "./pages/mojeKupnje"
+import SveKupnje from "./pages/sveKupnje";
+import AddCar from "./components/AddCar";
+import AddTireRim from "./components/AddTireRim";
 
 const App = () => {
   const [korisnik, postaviKorisnika] = useState(null)
@@ -36,8 +40,8 @@ const App = () => {
 
     
     <Router> 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="navigacija">
+      <nav className="navbar navbar-expand-xl navbar-light bg-light">
+
               <a href="/home" className="navbar-brand">
                 <img
                   src="https://cdn.iconscout.com/icon/premium/png-256-thumb/audi-8-332760.png"
@@ -48,8 +52,8 @@ const App = () => {
               <button
                 type="button"
                 className="navbar-toggler"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse"
+                data-toggle="collapse"
+                data-target="#navbarCollapse"
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -71,15 +75,23 @@ const App = () => {
                     href="/sviAuti"
                     className="nav-item nav-link"
                   >
-                    Neprodana auta
+                    Auta u prodaji
                   </a>}
-                  <a href="/mojaVozila" className="nav-item nav-link">
+                  {korisnik.admin===false?<a href="/mojaVozila" className="nav-item nav-link">
                     Kupljena vozila
-                  </a>
+                  </a>:<a href="/sveKupnje" className="nav-item nav-link">
+                    Sve kupovine
+                  </a>}
                   {korisnik.admin===true?
                 <div>
-                  <a href="/novaAuta" className="nav-item nav-link">
+                  <a href="/dodajAuto" className="nav-item nav-link">
                     Dodaj auto
+                  </a>
+                </div>:""}
+                {korisnik.admin===true?
+                <div>
+                  <a href="/dodajGN" className="nav-item nav-link">
+                    Dodaj gumu/naplatak
                   </a>
                 </div>:""}
                 </div>
@@ -102,7 +114,7 @@ const App = () => {
                   
                 </div>}
               </div>
-            </div>
+            
           </nav>
       <Routes>
      
@@ -110,7 +122,13 @@ const App = () => {
         <Route path="/sign-up" element={<Registracija />}></Route>
         <Route path="/home" element={<Layout />}></Route>
         <Route path="/ponuda" element={<PonudaAuta/>}></Route>
+        <Route path="/mojaVozila" element={<MojeKupnje/>}></Route>
         <Route path="/sviAuti" element={<SviAuti/>}></Route>
+        <Route path="/sveKupnje" element={<SveKupnje/>}></Route>
+        <Route path="/dodajAuto" element={<AddCar/>}></Route>
+        <Route path="/dodajGN" element={<AddTireRim/>}></Route>
+        
+
         
       </Routes>
       <Footer></Footer>

@@ -43,6 +43,9 @@ kupnjaRouter.post("/", async (req, res) => {
   kupnjaRouter.get('/', async(req,res)=>{
     const kupnje= await Kupnja.find({})
     .populate('korisnik',{username:1, ime:1})
+    .populate('car',{slika:1,marka:1, model:1, cijena:1})
+    .populate('tire',{slika:1, tip:1, marka:1, cijena:1})
+    .populate('rim',{slika:1, tip:1, cijena:1})
     res.json(kupnje)
   })
 

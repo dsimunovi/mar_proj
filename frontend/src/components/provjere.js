@@ -7,4 +7,5 @@ const ValidateEmail = (email) => {
     return false;
   }
 };
+
 export default ValidateEmail;

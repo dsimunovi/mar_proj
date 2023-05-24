@@ -8,8 +8,6 @@ import rimsActions from "../services/rims"
 import Rims from "./Rims";
 import carsActions from '../services/cars';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import './Payment.css'
 import korisnikAkcije from '../services/users'
 import kupnjaAkcije from '../services/buy'
 
@@ -18,7 +16,7 @@ import kupnjaAkcije from '../services/buy'
 
 
 
-const Cars_admin=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,prodano})=>{
+const Cars_admin=({id,slika,marka,model,kilometri,godiste,vrstaMotora,snagaMotora,mjenjac,gume,boja,cijena,naplatci,prodano,brisanjeAuta})=>{
   const [korisnik, postaviKorisnika] = useState(null)
   const [user,setUser]=useState(null)
   const [startColor, setStartColor] = useState(boja);
@@ -123,11 +121,9 @@ if (logiraniKorisnikJSON) {
                           <label className="mb-1 me-1">{cifra} €</label> {/*trenutna cijena */}
                         </div>
                         <div className="d-flex flex-column mt-4">
-                        <Button variant="danger">Obriši</Button>
+                        <Button variant="danger" onClick={brisanjeAuta}>Obriši</Button>
                         </div>
-                        <div className="d-flex flex-column mt-4">
-                        <Button style={{backgroundColor:'black', border:'2px solid darkmagenta'}} variant="primary" onClick={() => setLgShow(true)}>Kupi</Button>
-                        </div>
+                        
                       </div>
                       <div className='row-1'>
                       

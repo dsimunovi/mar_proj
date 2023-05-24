@@ -70,7 +70,6 @@ console.log("Spajamo se na bazu");
 mongoose
   .connect(url)
   .then((result) => {
-    //   novaPoruka.save()
     console.log("Spojeni smo na bazu");
   })
   .catch((error) => {

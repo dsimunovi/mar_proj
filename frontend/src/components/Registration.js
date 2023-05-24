@@ -20,12 +20,7 @@ const Registracija = () => {
     e.preventDefault();
     try {
       if(!ValidateEmail(email)){
-        return(
-          <div>
-            Krivi e-mail
-          </div>
-        )
-      
+        return 
       }
       const korisnikNovi = await usersActions.stvoriKorisnika({
         username,ime,pass,email

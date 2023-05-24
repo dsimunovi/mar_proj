@@ -1,0 +1,27 @@
+.stupac{
+    display: flex;
+    flex-direction: column;
+    
+}
+.dodavanje{
+    display: flex;
+    flex-direction: column;
+}
+label{
+    margin-bottom: 2%;
+}
+.red{
+    display: flex;
+    justify-content: space-around;
+    align-items:center ;
+}
+select{
+    height: min-content;
+}
+#dodaj{
+    width: 20%;
+}
+
+button{
+    background-color: rgb(10, 220, 17);
+}
