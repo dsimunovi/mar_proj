@@ -25,8 +25,7 @@ const SveKupnje=()=>{
     
         }
     }, []);
-    
-console.log(kupnje)
+
     return(
         <div>
             <h1>Moja vozila</h1>

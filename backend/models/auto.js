@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-const password = process.env.ATLAS_PASS;
-const dbname = "auti-api";
-const url = `mongodb+srv://marija:${password}@cluster0.qsuk5.mongodb.net/${dbname}?retryWrites=true&w=majority`;
-
 const autoSchema = new mongoose.Schema({
   slika: {
     type: String,
@@ -67,11 +63,4 @@ module.exports = Auto;
 
 console.log("Spajamo se na bazu");
 
-mongoose
-  .connect(url)
-  .then((result) => {
-    console.log("Spojeni smo na bazu");
-  })
-  .catch((error) => {
-    console.log("Greška pri spajanju", error.message);
-  });
+

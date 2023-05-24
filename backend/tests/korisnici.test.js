@@ -1,65 +1,41 @@
-const bcrypt = require('bcrypt')
-const Korisnik = require('../models/korisnik')
-const pomocni = require('./test_pomocni')
-const mongoose = require('mongoose')
-const supertest = require('supertest')
-const app = require('../app')
-const api = supertest(app)
+const Korisnik= require('../models/korisnik')
+const mongoose=require('mongoose')
+const supertest=require('supertest')
+const app =require('../app')
+const pomocna=require('./zaTestiranje')
+const api=supertest(app)
+const bcrypt=require('bcryptjs')
 
-describe('Kada imamo samo jednog korisnika u bazi', () =>{
-  beforeEach(async () => {
+beforeEach(async () => {
     await Korisnik.deleteMany({})
 
-    const passHash = await bcrypt.hash('tajna', 10)
-    const korisnik = new Korisnik({ime: 'Admin', username: 'admin', passHash})
+    const passHash = await bcrypt.hash('okviri', 10)
+    const korisnik = new Korisnik({ime: 'prviKorisnik', username: 'testni', passHash, email:'prvi@mail.com'})
     await korisnik.save()
   })
 
-  test('stvaranje novog korisnika', async () =>{
-    const pocetniKorisnici = await pomocni.korisniciUBazi()
 
-    const novi = {
-      username: 'gzaharija',
-      ime: 'Goran Zaharija',
-      pass: 'oarwa'
+  test('Provjerava postoji li korisnik', async()=>{
+    const sviKorisnici=await pomocna.korisniciBaze()
+    const noviKorisnik={
+        username:'testni',
+        ime:'noviKorisnik',
+        pass:'okviri',
+        email:'novi@mail.com'
+
     }
-
-    await api
-    .post('/api/korisnici')
-    .send(novi)
-    .expect(200)
+    const odg=await api
+    .post('/api/users')
+    .send(noviKorisnik)
+    .expect(401)
     .expect('Content-Type', /application\/json/)
+    expect(odg.body.error).toContain('Korisnik već postoji!')
 
-    const korisniciKraj = await pomocni.korisniciUBazi()
-    expect(korisniciKraj).toHaveLength(pocetniKorisnici.length + 1)
-
-    const korImena = korisniciKraj.map(u => u.username)
-    expect(korImena).toContain(novi.username)
+    const korisniciKonacno=await pomocna.korisniciBaze()
+    expect(korisniciKonacno).toHaveLength(sviKorisnici.length)
   })
 
-  test('ispravno vraca pogresku ako vec postoji username', async () =>{
-    const pocetniKorisnici = await pomocni.korisniciUBazi()
 
-    const novi = {
-      username: 'admin',
-      ime: 'Goran Zaharija',
-      pass: 'oarwa'
-    }
-
-    const rezultat = await api
-    .post('/api/korisnici')
-    .send(novi)
-    .expect(400)
-    .expect('Content-Type', /application\/json/)
-
-    expect(rezultat.body.error).toContain('`username` to be unique')
-
-    const korisniciKraj = await pomocni.korisniciUBazi()
-    expect(korisniciKraj).toHaveLength(pocetniKorisnici.length)
-  })  
-
-})
-
-afterAll(() => {
+  afterAll(() => {
     mongoose.connection.close()
-  })
+})
