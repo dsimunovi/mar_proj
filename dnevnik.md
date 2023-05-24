@@ -127,3 +127,10 @@ Pocetak | Kraj
 ### Kratki opis promjena
 Napravljena komplet admin strana, dodavanje novog auta s pripadaućim gumama i naplatcima, dodavanje novih guma i naplataka te brisanje auta iz prodaje.
 Preostaje napraviti testove.
+
+## 24.5.2023.
+Pocetak | Kraj
+------- | ----
+18:20 | 19:43
+### Kratki opis promjena
+Backend testovi gotovi.
