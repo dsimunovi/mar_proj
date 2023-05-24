@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap');
-img{
-   width: 100px;
-   height: 100px;
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap");
+img {
+  width: 100px;
+  height: 100px;
 }
-td{
-    vertical-align: middle;
+td {
+  vertical-align: middle;
 }
-#ukupno{
-    font-size: 1.5rem;
+#ukupno {
+  font-size: 1.5rem;
 }
-h1{
-    text-align: center;
-    margin-bottom: 3%;
-    font-family: 'Rubik Marker Hatch', cursive;
+h1 {
+  text-align: center;
+  margin-bottom: 3%;
+  font-family: "Rubik Marker Hatch", cursive;
 }

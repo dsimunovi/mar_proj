@@ -1,9 +1,8 @@
-
 .row-1 {
   display: flex;
   justify-content: flex-end;
 }
-.postavi{
+.postavi {
   color: white;
   background-color: black;
   margin-top: 2%;
@@ -95,8 +94,6 @@ img {
   margin-bottom: 15px;
 }
 
-
-
 .slike-sel {
   height: 250px;
   width: 250px;
@@ -146,12 +143,12 @@ img {
   justify-content: space-around;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap");
 
-#slika-auta{
- height: fit-content;
+#slika-auta {
+  height: fit-content;
 }
-#main-car{
+#main-car {
   display: flex;
   margin-bottom: 2%;
   background-color: rgba(64, 8, 68, 0.34);
@@ -159,31 +156,30 @@ img {
   align-items: center;
 }
 
-.cijena{
- justify-content: center !important;
+.cijena {
+  justify-content: center !important;
 }
 
-.cijenaAuta{
+.cijenaAuta {
   justify-content: center !important;
   font-size: xx-large;
 }
-#car-card{
+#car-card {
   width: 100%;
   align-items: center;
 }
 
-.info{
+.info {
   font-size: large;
   color: rgb(64, 17, 70);
-  font-family: 'Rubik Dirt', cursive;
-  
+  font-family: "Rubik Dirt", cursive;
 }
 
-.row{
+.row {
   display: flex;
   justify-content: center;
 }
 
-.padding{
-  background-color:mediumpurple;
+.padding {
+  background-color: mediumpurple;
 }

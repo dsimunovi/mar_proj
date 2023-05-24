@@ -9,32 +9,34 @@ const Registracija = () => {
   const [ime, promjenaNamea] = useState("");
   const [email, promjenaEmail] = useState("");
   const [pass, promjenaPassworda] = useState("");
-  const[provjera, postaviProvjeru]=useState([])
-  const provjeriKorisnika=(username)=>{
-    usersActions.dohvatiJednogKorisnika(username)
-    .then (res=>postaviProvjeru)
-  }
-  
+  const [provjera, postaviProvjeru] = useState([]);
+  const provjeriKorisnika = (username) => {
+    usersActions
+      .dohvatiJednogKorisnika(username)
+      .then((res) => postaviProvjeru);
+  };
 
   const userRegistration = async (e) => {
     e.preventDefault();
     try {
-      if(!ValidateEmail(email)){
-        return 
+      if (!ValidateEmail(email)) {
+        return;
       }
       const korisnikNovi = await usersActions.stvoriKorisnika({
-        username,ime,pass,email
+        username,
+        ime,
+        pass,
+        email,
       });
       promjenaNicka("");
       promjenaNamea("");
       promjenaEmail("");
       promjenaPassworda("");
-      alert("Uspješno ste se registrirali")
-      window.location.reload(true)}
-      
-     catch (exception) {
+      alert("Uspješno ste se registrirali");
+      window.location.reload(true);
+    } catch (exception) {
       alert("Probajte s drugim podacima");
-       promjenaNicka("");
+      promjenaNicka("");
       promjenaNamea("");
       promjenaEmail("");
       promjenaPassworda("");
@@ -50,7 +52,7 @@ const Registracija = () => {
             role="tabpanel"
             aria-labelledby="tab-login"
           >
-            <form>
+            <form onSubmit={userRegistration}>
               <div className="text-center mb-3" id="labela">
                 <p>Create your account:</p>
               </div>
@@ -81,11 +83,7 @@ const Registracija = () => {
                   value={ime}
                   onChange={(e) => promjenaNamea(e.target.value)}
                 />
-                <label
-                  className="form-label"
-                  htmlFor="registerName"
-                  id="ime"
-                >
+                <label className="form-label" htmlFor="registerName" id="ime">
                   Name
                 </label>
               </div>
