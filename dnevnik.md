@@ -118,3 +118,12 @@ Pocetak | Kraj
 17:00 | 21:27
 ### Kratki opis promjena
 Riješen problem s loginom nakon kupnje auta, još dovršiti admin stranu i testove napraviti.
+
+## 23.5.2023.
+Pocetak | Kraj
+------- | ----
+12:15 | 15:00
+18:00  | 01:07
+### Kratki opis promjena
+Napravljena komplet admin strana, dodavanje novog auta s pripadaućim gumama i naplatcima, dodavanje novih guma i naplataka te brisanje auta iz prodaje.
+Preostaje napraviti testove.
