@@ -134,3 +134,10 @@ Pocetak | Kraj
 18:20 | 19:43
 ### Kratki opis promjena
 Backend testovi gotovi.
+
+## 24.5.2023.
+Pocetak | Kraj
+------- | ----
+21:00 | 1:31
+### Kratki opis promjena
+Gotovi frontend testovi te konačna verzija aplikacije. :)
