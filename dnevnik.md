@@ -141,3 +141,10 @@ Pocetak | Kraj
 21:00 | 1:31
 ### Kratki opis promjena
 Gotovi frontend testovi te konačna verzija aplikacije. :)
+
+## 26.5.2023.
+Pocetak | Kraj
+------- | ----
+20:25 | 21:08
+### Kratki opis promjena
+Male izmjene na aplikaciji, poput onesposobljavanja klika na botun nakon uspješnog spremanja guma i naplataka.
