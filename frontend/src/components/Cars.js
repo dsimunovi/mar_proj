@@ -64,7 +64,7 @@ const Cars = ({
   var ukupno_ispis = ukupno
     .toString()
     .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
-  var cifra = cijena.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+
 
   const izmjenaAuta = (id) => {
     const auto = cars.find((c) => c.id === id);
@@ -99,6 +99,7 @@ const Cars = ({
         godina: istekGodina,
         cvv: cvv,
       });
+      alert("Hvala na kupnji!")
       window.location.reload(true);
     } catch {
       alert("Neispravni podaci");
@@ -223,7 +224,7 @@ const Cars = ({
         </div>
         <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none  cijena">
           <div className="d-flex flex-row align-items-center mb-1 cijenaAuta">
-            <label className="mb-1 me-1">{cifra} €</label>{" "}
+            <label className="mb-1 me-1">{ukupno_ispis} €</label>{" "}
             {/*trenutna cijena */}
           </div>
           <div className="d-flex flex-column mt-4">

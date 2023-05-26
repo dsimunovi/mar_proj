@@ -59,21 +59,23 @@ const Cars_admin = ({
   var ukupno_ispis = ukupno
     .toString()
     .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
-  var cifra = cijena.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
 
   useEffect(() => {
     carsActions.dohvatiSve().then((res) => postaviAute(res.data));
   }, []);
 
   useEffect(() => {
-    const logiraniKorisnikJSON = window.localStorage.getItem(
-      "prijavljeniKorisnik"
-    );
-    if (logiraniKorisnikJSON) {
-      const korisnik = JSON.parse(logiraniKorisnikJSON);
-      postaviKorisnika(korisnik);
-      kupnjaAkcije.postaviToken(korisnik.token);
-    }
+    tiresActions.dohvatiJedneGume(gume).then((res) => {
+      setTires(res.data);
+      setVisibleGume(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    rimsActions.dohvatiJedanNaplatak(naplatci).then((res) => {
+      setRims(res.data);
+      setVisibleRim(true);
+    });
   }, []);
 
   return (
@@ -119,7 +121,7 @@ const Cars_admin = ({
         </div>
         <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none  cijena">
           <div className="d-flex flex-row align-items-center mb-1 cijenaAuta">
-            <label className="mb-1 me-1">{cifra} €</label>{" "}
+            <label className="mb-1 me-1">{ukupno_ispis} €</label>{" "}
             {/*trenutna cijena */}
           </div>
           <div className="d-flex flex-column mt-4">

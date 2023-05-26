@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Cars_admin from "../components/Cars-admin";
 import carsActions from "../services/cars";
+import tiresActions from "../services/tires";
+import rimsActions from "../services/rims";
 
 const SviAuti = () => {
   const [cars, getCars] = useState([]);
   const svi = cars.filter((car) => car.prodano === false);
 
   const brisanjeAuta = (id) => {
+    const auto=cars.find((c)=>c.id===id)
+    rimsActions.brisi(auto.naplatci)
+    tiresActions.brisi(auto.gume)
     carsActions.brisi(id).then((res) => {
       getCars(cars.filter((c) => c.id !== id));
     });

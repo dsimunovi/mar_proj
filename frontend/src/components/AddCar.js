@@ -25,6 +25,8 @@ const AddCar = () => {
   const [naplatak, postaviNaplatak] = useState("");
   const [naplatakTip, postaviTipNaplatka] = useState("");
   const [naplatakCijena, postaviCijenuNaplatka] = useState("");
+  const [disabledGume,setDisabledGume]=useState(false)
+  const [disabledNaplatci, setDisabledNaplatci]=useState(false)
 
   const dodajGumu = (e) => {
     e.preventDefault();
@@ -53,6 +55,7 @@ const AddCar = () => {
       postaviMarkuGume("");
       postaviTipGume("");
       alert("Uspješno se spremili gumu!");
+      setDisabledGume(true)
     } catch (exception) {
       alert("Dogodila se greška!");
       postaviCijenuGume("");
@@ -86,6 +89,7 @@ const AddCar = () => {
       postaviTipNaplatka("");
       postaviCijenuNaplatka("");
       alert("Uspješno ste spremili naplatak!");
+      setDisabledNaplatci(true)
     } catch (exception) {
       alert("Dogodila se greška!");
       postaviNaplatak("");
@@ -247,7 +251,7 @@ const AddCar = () => {
           Cijena gume:{" "}
           <input onChange={(e) => postaviCijenuGume(e.target.value)}></input>
         </label>
-        <button onClick={dodajGumu}>Spremi gume</button>
+        <button onClick={dodajGumu} disabled={disabledGume}>Spremi gume</button>
       </div>
       <div className="stupac">
         <h3>Naplatci na autu</h3>
@@ -269,7 +273,7 @@ const AddCar = () => {
             onChange={(e) => postaviCijenuNaplatka(e.target.value)}
           ></input>
         </label>
-        <button onClick={dodajNaplatak}>Spremi naplatke</button>
+        <button onClick={dodajNaplatak} disabled={disabledNaplatci}>Spremi naplatke</button>
       </div>
     </div>
   );

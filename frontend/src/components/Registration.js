@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import usersActions from "../services/users";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ValidateEmail from "./provjere";
 
 const Registracija = () => {
@@ -15,7 +15,7 @@ const Registracija = () => {
       .dohvatiJednogKorisnika(username)
       .then((res) => postaviProvjeru);
   };
-
+const navigate=useNavigate()
   const userRegistration = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +33,7 @@ const Registracija = () => {
       promjenaEmail("");
       promjenaPassworda("");
       alert("Uspješno ste se registrirali");
-      window.location.reload(true);
+      navigate('/')
     } catch (exception) {
       alert("Probajte s drugim podacima");
       promjenaNicka("");
