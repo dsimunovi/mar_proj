@@ -1,12 +1,13 @@
 const bcrypt = require("bcryptjs");
 const Korisnik = require("../models/korisnik");
 const korisniciRouter = require("express").Router();
-
+const mongoose=require('mongoose')
 
 
 korisniciRouter.get("/", async (req, res,next) => {
   
-  const korisnici = await Korisnik.find({}).populate('kupnje',populate('car',{marka:1,model:1, cijena:1}),populate('tire',{marka:1,tip:1,cijena:1}),populate('rim',{tip:1,cijena:1}))
+  const korisnici = await Korisnik.find({})
+  .populate('kupnje', {car:1,korisnik:1, tire:1, rim:1})
   res.json(korisnici);
 });
 
